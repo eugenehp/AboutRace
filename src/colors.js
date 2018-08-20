@@ -25,3 +25,5 @@ export const interviewTickerColor = '#57C190';
 export const clipColors = ['#7C85A5', backgroundColor];
 export const clipRadialColors = ['#37625D', '#2F4134'];
 export const clipTickerColor = '#363D43';
+
+export const teachingBlue = '#E3F8FF'

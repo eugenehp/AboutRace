@@ -263,6 +263,7 @@ export const FullQAFragment = graphql`
     fields {
       slug
     }
+    field_belong_to_episode
     field_title {
       processed
     }
@@ -485,3 +486,48 @@ export const QuickfactWithRelatedContentFragment = graphql`
   }
 `
 
+export const LessonPlanFragment = graphql`
+  fragment LessonPlanFragment on node__lesson_plan {
+    id
+    title
+    field_activity{
+      processed
+    }
+    field_overview {
+      processed
+    }
+    field_subjects {
+      processed
+    }
+    field_objectives {
+      processed
+    }
+    field_copyright_a {
+      processed
+    }
+    field_description {
+      processed
+    }
+    field_lesson_plan {
+      processed
+    }
+    field_grade_levels {
+      processed
+    }
+    field_lesson_summary {
+      processed
+    }
+    field_time_allotment {
+      processed
+    }
+    field_lesson_plan_author {
+      processed
+    }
+    field_less_plan_author_bio {
+      processed
+    }
+    field_subjects {
+      processed
+    }
+  }
+`

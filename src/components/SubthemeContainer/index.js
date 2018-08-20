@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import FlipMove from 'react-flip-move'
 // import get from 'lodash/get'
 
-import Filters from './Filters'
+import Filters from '../Filters'
 import {
   FiledUnderLink,
   Article,
@@ -26,7 +26,6 @@ import getCards from '../../utils/getCards'
 
 import {
   white,
-  backgroundColor,
   softblack
 } from '../../colors'
 

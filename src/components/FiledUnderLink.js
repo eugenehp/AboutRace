@@ -14,13 +14,15 @@ const FiledUnderLinkContainer = styled(Link)`
   display: flex;
   flex-direction: row;
 
+  align-items: center;
+
   padding-left: 0;
   padding-right: 10px;
   padding-top:9px;
 
   font-family: Lato;
   font-size: 18px;
-  line-height: 24px;
+  
   letter-spacing: 0.02em;
   text-transform: capitalize;
 
@@ -37,12 +39,17 @@ const FiledUnderLinkContainer = styled(Link)`
   }
 `
 
-const FiledUnderLink = ({children, color, to}) => {
-  if(!color) color = red;
+const FiledUnderLink = props => {
+  let {children, color, to} = props;
+
+  let arrowcolor = props.arrowcolor ? props.arrowcolor : color
+
+  if(!color) color = red
+  if(!to) to = '#'
 
   return (
-    <FiledUnderLinkContainer href={to} color={color}>
-      <SVGArrow style={{width: 25, marginRight: 10}} color={color}/>
+    <FiledUnderLinkContainer {...props} href={to} to={to} color={color}>
+      <SVGArrow style={{width: 25, marginRight: 10}} color={arrowcolor}/>
       {children}
     </FiledUnderLinkContainer>
   )

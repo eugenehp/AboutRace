@@ -1,87 +1,56 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import get from 'lodash/get'
+
+import {
+  Layout,
+  CollectionPage
+} from '../components'
+
 import { graphql } from 'gatsby'
 
 import {
-	AllClips, 
-	Layout, 
-	Filter
-} from '../components'
+  white
+} from '../colors'
 
-const queryString = require('query-string');
+const Container = styled.div`
+  background-color: ${white};
 
-const ClipsIntro = styled.div`
-	font-size: 24px;
-	margin-bottom: 60px;
-	line-height: 1.5;
+  @media (max-width: 812px) { /* mobile */
+
+  }
 `
 
-class Clips extends Component {
-	constructor(props) {
-	  super(props);
-		const selected = 'all'
+const description = `In the United States, buying a home is the key to achieving the American Dream. Forty-two percent of the net worth of all households consists of equity in their homes - that means for most Americans, their homes are their single largest asset. Homeownership provides families with the means to invest in education, business opportunities, retirement and resources for the next generation.`
 
-	  this.state = {
-	  	selected
-	  };
-	}
+export default ({ data, location }) => {
+  const title = "Clips"
+  // const description = get(data, 'taxonomyTermInterviewsPage.description.processed')
+  const clips = get(data, `allNodeClip.edges`).map(edge => edge.node)
 
-	onSelected = selected => {
-		let queryParams = queryString.parse(window.location.search)
-		queryParams.episode = selected;
-		// const search = `?` + queryString.stringify({ ...queryParams});
+  const cards = { clips }
 
-		// uncomment if you want to have url changed
-		// history.pushState({}, window.document.title, search)
+  const props = {
+    title,
+    description,
+    cards
+  }
 
-		this.setState({selected})
-	}
-
-	componentDidMount() {
-		const queryParams = queryString.parse(window.location.search)
-		const { episode } = queryParams;
-		const selected = episode ? episode : 'all';
-
-		this.setState({selected})
-	}
-
-	render() {
-		const { selected } = this.state;
-		const { data, location } = this.props;
-
-		return (
-			<Layout location={location}>
-				<div className='darkwrapper'>
-					<Filter selected={selected} onSelected={this.onSelected}/>
-					<ClipsIntro>
-						Various clips from the film featured here. Buy a copy of the film here.
-					</ClipsIntro>
-					<AllClips data={data} selected={selected}/>
-				</div>
-			</Layout>
-		)
-	}
+  return (
+    <Layout location={location}>
+      <Container>
+        <CollectionPage {...props}/>
+      </Container>
+    </Layout>
+  )
 }
-
-export default Clips;
 
 export const query = graphql`
   query ClipsQuery {
     allNodeClip {
 		  edges {
 		    node {
-		      field_episode
-		      title
-		    	field_title_of_clip {
-		        processed
-		      }
-		       relationships {
-		        field_poster_image {
-		          localFile {
-		            publicURL
-		          }
-		        }
-		      }
+		      ...FullClipFragment
 		    }
 		  }
 		}

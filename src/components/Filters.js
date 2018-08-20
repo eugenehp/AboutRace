@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { black, red, white } from '../../colors'
-import { DISPLAY_NAMES_TO_SLUG } from '../../constants'
+import { black, red, white } from '../colors'
+import { DISPLAY_NAMES_TO_SLUG } from '../constants'
 
 const Container = styled.div`
   mix-blend-mode: normal;
@@ -41,7 +41,7 @@ const Button = styled.div`
 
 const itemExists = (itemTag, parent) => parent.relationships[itemTag]
 
-const Filters = ({ queryParams, name, filter, subtheme, toggleFilter, color}) => {
+const Filters = ({ queryParams, filter, subtheme, toggleFilter, color}) => {
   const array = Array
     .from(DISPLAY_NAMES_TO_SLUG.keys())
     .filter(itemType => (itemType === `recently added` || itemExists(itemType, subtheme)))

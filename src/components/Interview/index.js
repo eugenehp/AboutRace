@@ -14,7 +14,6 @@ import {
   white,
   darkWhite,
   whiteShadow,
-  backgroundColor,
   red,
   softblack,
 } from '../../colors'

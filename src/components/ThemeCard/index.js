@@ -5,7 +5,6 @@ import SVGChevron from '../SVGChevron'
 import SubThemeCard from './SubThemeCard'
 
 import {
-  black,
   white,
   getGradient
 } from '../../colors'
@@ -82,9 +81,11 @@ const Info = styled.div`
   margin-top: -200px;
   margin-bottom: -100px;
 
+  overflow: hidden;
+
   z-index: 1;
 
-  backdrop-filter: blur(12px);
+  /*backdrop-filter: blur(12px);*/
 
   cursor: pointer;
 
@@ -102,7 +103,7 @@ const Info = styled.div`
     height: 100%;
 
     background: ${props => props.gradient ? props.gradient : null };
-    filter: blur(12px);
+    /*filter: blur(12px);*/
     filter: opacity(53%);
   }
 
@@ -252,8 +253,24 @@ class ThemeCard extends React.Component {
         gradient={gradient}
         onClick={() => this.setState({open: !open})}
       >
-        <MainImage background={background} />
+        <MainImage 
+          style={{
+            height: 323,
+            marginBottom: 200
+          }}
+          background={background}
+        />
         <Info gradient={gradient}>
+          <MainImage 
+            style={{
+              marginTop: -323,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              filter: 'blur(12px)',
+              zIndex: -1,
+            }}
+            background={background}
+          />
           <FirstRow>
             <Explore>Explore:</Explore>
             <Title >{title}</Title>

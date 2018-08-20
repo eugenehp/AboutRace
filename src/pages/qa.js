@@ -1,124 +1,109 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Link, graphql} from 'gatsby'
+import get from 'lodash/get'
 
 import {
-  Layout, 
-  Filter
+  Layout,
+  CollectionPage
 } from '../components'
 
-const queryString = require('query-string');
+import { graphql } from 'gatsby'
 
-const Title = styled.div`
-    
+import {
+  white,
+  black
+} from '../colors'
+
+const Container = styled.div`
+  background-color: ${white};
+
+  @media (max-width: 812px) { /* mobile */
+
+  }
 `
+const FiltersContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 
-const IntroText = styled.div`
-  font-weight: 300;
-  font-size: 48px;
-  line-height: 1.25;
-  z-index:99999;
-  margin: 60px 45px;
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: 0.22em;
   font-family: 'Lato';
+  color: ${props => props.color ? props.color : black};
+  opacity: 0.8;
 `
 
+const FilterButton = styled.div`
+  cursor: pointer;
 
-const Summary = ({ data }) => {
-  return (
-      <div className={"articleCard"}>
-       
-        <div className="articleExcerpt">
-          
-          <Title>
-            <Link to={`/qa/${data.fields.slug}`}>
-              {
-                data.field_question_summary 
-                  ? data.field_question_summary.processed
-                  : data.field_title.processed
-              }
-            </Link>
-          </Title>
-          
-        </div>
-       
-      </div>
-  )
-}///
+  text-transform: uppercase;
+  margin-left: 25px;
 
-class QA extends Component {
+  font-weight: ${props => props.selected ? 'bold' : 'none'};
+`
+
+const filterItems = ['all', 'episode one', 'episode two', 'episode three']
+
+const Filters = ({selected, select}) => <FiltersContainer>
+  View:
+  {
+    filterItems.map( (name, key) => <FilterButton 
+        selected={selected === key}
+        key={"filter-"+key}
+        onClick={ () => select(key)}
+      >
+      {name}
+      </FilterButton>
+    )
+  }
+</FiltersContainer>
+
+const description = `In the United States, buying a home is the key to achieving the American Dream. Forty-two percent of the net worth of all households consists of equity in their homes - that means for most Americans, their homes are their single largest asset. Homeownership provides families with the means to invest in education, business opportunities, retirement and resources for the next generation.`
+
+class QA extends React.Component {
   constructor(props) {
     super(props);
-    const selected = 'all'
-
+  
     this.state = {
-      selected
+      filter: 0
     };
   }
 
-  onSelected = selected => {
-    let queryParams = queryString.parse(window.location.search)
-    queryParams.episode = selected;
-    const search = `?` + queryString.stringify({ ...queryParams});
-
-    window.history.pushState({}, window.document.title, search)
-
-    this.setState({selected})
-  }
-
-  componentDidMount() {
-    const queryParams = queryString.parse(window.location.search)
-    const { episode } = queryParams;
-    const selected = episode ? episode : 'all';
-
-    this.setState({selected})
-  }
-
   render() {
-    const { selected } = this.state;
-    const { data, location } = this.props;
+    const title = "Q&A"
+    const faqs = get(this, `props.data.allNodeFaq.edges`).map(edge => edge.node)
+
+    const props = {
+      title,
+      description,
+      cards: { 
+        faqs: faqs.filter( ({field_belong_to_episode}) => this.state.filter === 0 ? true : field_belong_to_episode === this.state.filter )
+      }
+    }
 
     return (
-      <Layout location={location}>
-        <div
-          style={{
-            backgroundColor: 'gray'
-          }}
-        >
-        <Filter color='black' selected={selected} onSelected={this.onSelected}/>
-        <IntroText>
-          The experts answer your questions about issues from the film.
-          Does race have a biological basis? Has the idea of race always been with us? Why does race still matter?
-        </IntroText>
-        {
-          data.allNodeFaq.edges.map((edge, i) =>
-            <Summary key={`QA-${i}`} data={edge.node} />
-          )
-        }
-        </div>
+      <Layout location={this.props.location}>
+        <Container>
+          <CollectionPage {...props}>
+            <Filters
+              selected={this.state.filter}
+              select={ filter => this.setState({filter}) }
+            />
+          </CollectionPage>
+        </Container>
       </Layout>
     )
   }
 }
 
-// TODO: uncomment this once episode information is in the data
-// data.allNodeFaq.edges.filter( el => selected === 'all' ? true : el.node.field_episode === parseInt(selected) ).map((edge, i) =>
-
-export default QA;
+export default QA
 
 export const query = graphql`
   query QAQuery {
     allNodeFaq {
       edges {
         node {
-          fields {
-            slug
-          }
-          field_title {
-            processed
-          }
-          field_question_summary {
-            processed
-          }
+          ...FullQAFragment
         }
       }
     }
