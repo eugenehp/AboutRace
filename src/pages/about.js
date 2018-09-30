@@ -18,6 +18,7 @@ import {
   smokegrey,
   softblack,
   fogwhite
+  episodeColors
 } from '../colors'
 
 const Container = styled.div`
@@ -157,9 +158,10 @@ const Card = props => {
     // title,
     episodeNumber,
     // field_episode,
-    description,
-    color,
+    description,    
   } = props.data
+  
+  const color = episodeColors[props.episodeKey];
 
   const {
     title,
@@ -267,7 +269,7 @@ class About extends React.Component {
 
           <Column style={{alignItems: 'center'}}>
             {
-              episodes.map( (episode, key) => <Card key={key} data={episode} number={numbers[key]} synopsis={synopsis[key]}/>)
+              episodes.map( (episode, key) => <Card key={key} data={episode} number={numbers[key]} synopsis={synopsis[key]} episodeKey={key}/>)
             }
           </Column>
 
