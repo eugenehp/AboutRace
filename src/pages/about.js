@@ -39,6 +39,20 @@ const Column = styled.div`
   flex-direction: column;
 `
 
+const AboutImage = styled.div`
+  height: 365px;
+
+  background-size: cover !important;
+  background-attachment: fixed;
+  background: ${ props => props.background ? `url(${props.background}) center no-repeat` : null };
+
+  @media (max-width: 812px) { /* mobile */
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0px;
+  }
+`
+
 const TopContainer = styled(Column)`
   background-color: ${smokegrey};
   justify-content: center;
@@ -87,8 +101,24 @@ const SubTitle = styled.div`
 `
 
 const InnerContainer = styled.div`
-  width: 600px;
+  max-width: 850px;
   padding-top: 60px;
+  display:flex;
+
+  @media (max-width: 812px) { /* mobile */
+    flex-direction:column;
+  }
+
+`
+
+const SubColumn = styled.div`
+  flex: ${ props => props.flex ? props.flex : '50%' };
+  //max-width:50%;
+  margin-right: 20px;
+
+  @media (max-width: 812px) { /* mobile */
+    margin-right: 0px;
+  }
 `
 
 const Text = styled.div`
@@ -96,7 +126,7 @@ const Text = styled.div`
 
   font-family: 'ff-tisa-web-pro';
   font-style: normal;
-  font-weight: normal;
+  font-weight:  ${ props => props.fontWeight ? props.fontWeight : 'normal'};
   line-height: 24px;
   font-size: 17px;
 
@@ -240,11 +270,13 @@ class About extends React.Component {
     const {
       quotes
     } = this.state
-    
+
     const credits = get(this, `props.data.credits.edges`).map(edge => edge.node)
     const synopsis = get(this, `props.data.synopsis.edges`).map(edge => edge.node)
     const taxonomy = get(this, `props.data.taxonomy.edges`).map(edge => edge.node)
     const transcript = get(this, `props.data.transcript.edges`).map(edge => edge.node)
+
+     const aboutImage = get(this, `props.data.taxonomy.edges[0].node.relationships.field_about_image.localFile.childImageSharp.original.src`)
 
     const numbers = ['one', 'two', 'three']
 
@@ -258,12 +290,19 @@ class About extends React.Component {
 
           <Column style={{alignItems: 'center'}}>
             <InnerContainer>
-              <Column>
-                <SubTitle dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement_title.processed] }}>
-                </SubTitle>
-                <Text dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement.processed] }}>
-                </Text>
-              </Column>
+
+                <SubColumn flex="40%">
+                  <AboutImage background={aboutImage}/>
+                  <Text fontWeight="bold" dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_about_image_description.processed] }}>
+                  </Text>
+                </SubColumn>
+                <SubColumn flex="60%">
+                  <SubTitle dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement_title.processed] }}>
+                  </SubTitle>
+                  <Text dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement.processed] }}>
+                  </Text>
+                </SubColumn>
+          
             </InnerContainer>
           </Column>
 
@@ -317,6 +356,23 @@ export const query = graphql`
           }
           field_series_production_credits {
             processed
+          }
+          field_about_image_description {
+            processed
+          }
+          relationships {
+            field_about_image {
+              localFile {
+                publicURL
+                childImageSharp {
+                  original {
+                    width
+                    height
+                    src
+                  }
+                }
+              }
+            }
           }
         }
       }
