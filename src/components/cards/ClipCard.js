@@ -16,6 +16,7 @@ import playButton from '../../assets/images/PlayButton.png';
 import {
   red,
   fogwhite,
+  softblack,
   smokegrey,
   clipTickerColor,
 } from '../../colors'
@@ -131,10 +132,13 @@ const TopTicker = styled.div`
   font-size: 12px;
   line-height: 28px;
   letter-spacing: 0.06em;
-  color: ${fogwhite};
-
+  color: ${softblack};
+  
+  
   background-color: rgba(90, 94, 97, .83);
-
+  ${ props => props.episodeNumber && props.episodeNumber == "1" ? 'background-color: rgba(250, 205, 101, .83);' : null }
+  ${ props => props.episodeNumber && props.episodeNumber == "2" ? 'background-color: rgba(255, 181, 88, .83);' : null }
+  ${ props => props.episodeNumber && props.episodeNumber == "3" ? 'background-color: rgba(246, 149, 92, .83);' : null }
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -175,7 +179,7 @@ export class ClipCard extends React.Component {
           <TopBlock>
           <TopImage background={background}/>
 
-            { field_episode && <TopTicker>{fromEpisode}</TopTicker> }
+            { field_episode && <TopTicker episodeNumber={field_episode}>{fromEpisode}</TopTicker> }
               <Image src={playButton} />
             <Ticker>film clip</Ticker>
           </TopBlock>

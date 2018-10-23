@@ -97,7 +97,7 @@ class Credits extends React.Component {
       <Layout location={this.props.location}>
         <Container>
           <InnerContainer>
-            <Title>Production Credits</Title>
+            <Title>Series Credits</Title>
             <Text dangerouslySetInnerHTML={{ __html: credits }}/>
           </InnerContainer>
         </Container>

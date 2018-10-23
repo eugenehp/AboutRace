@@ -186,12 +186,6 @@ class Episode extends React.Component {
               </FiledUnderLink>)
             }
 
-            <SubTitle style={{marginTop: 50}}>CLIPS:</SubTitle>
-
-            <CardsContainer>
-              { relatedClips }
-            </CardsContainer>
-
             <FiledUnderLink
               style={{paddingLeft: 0}}
               color={black}
@@ -206,6 +200,13 @@ class Episode extends React.Component {
             >
               episode transcript
             </FiledUnderLink>
+
+            <SubTitle style={{marginTop: 50}}>CLIPS:</SubTitle>
+
+            <CardsContainer>
+              { relatedClips }
+            </CardsContainer>
+
           </SideColumn>
         </MobileRow>
       </Container>

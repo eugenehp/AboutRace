@@ -72,6 +72,36 @@ const ArrowContainer = styled.div`
   width: 25px;
   height: 20px;
 `
+const EpisodeTicker = styled.div`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  height: 28px;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  border-radius: 3px;
+
+  text-transform: uppercase;
+
+  font-family: 'Quicksand';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 28px;
+  letter-spacing: 0.06em;
+  color: ${softblack};
+  
+  
+  background-color: rgba(90, 94, 97, .83);
+  ${ props => props.episodeNumber && props.episodeNumber == "1" ? 'background-color: rgba(250, 205, 101, .83);' : null }
+  ${ props => props.episodeNumber && props.episodeNumber == "2" ? 'background-color: rgba(255, 181, 88, .83);' : null }
+  ${ props => props.episodeNumber && props.episodeNumber == "3" ? 'background-color: rgba(246, 149, 92, .83);' : null }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 
 const Arrow = () => <ArrowContainer><SVGArrow color={red}/></ArrowContainer>
 
@@ -83,6 +113,8 @@ export class QACard extends React.Component {
     const qa = data
     const link = `/qa/${kebabCase(qa.title)}`
 
+    const fromEpisode = `from episode ${qa.field_belong_to_episode}`
+    
     return (
       <Container
         changed={qa.changed}
@@ -91,6 +123,7 @@ export class QACard extends React.Component {
         <Title>Q&A</Title>
         <Question>{qa.title}</Question>
         <Arrow />
+        { qa.field_belong_to_episode && <EpisodeTicker episodeNumber={qa.field_belong_to_episode}>{fromEpisode}</EpisodeTicker> }
       </Container>
     )
   }

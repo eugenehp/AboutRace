@@ -619,7 +619,7 @@ class QA extends React.Component {
     const MobileSideBar = props => (
       <MobileSideBarContainer>
 
-        <MobileRow style={{alignItems: 'flex-start'}}>
+        {/* <MobileRow style={{alignItems: 'flex-start'}}>
           <FiledUnderContainer>
             <SubTitle>filed under:</SubTitle>
             {
@@ -631,11 +631,11 @@ class QA extends React.Component {
             <SubTitle>explore:</SubTitle>
             { renderTags() }
           </MobileColumn>
-        </MobileRow>
+        </MobileRow> */}
 
         <MobileRow>
           {
-            relatedContent.length > 0 && <SubTitle style={{marginTop: 90}}>see also:</SubTitle>
+            relatedContent.length > 0 && <SubTitle style={{marginTop: 0}}>see also:</SubTitle>
           }
         </MobileRow>
 
