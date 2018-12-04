@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { navigate } from "gatsby"
+
 import {
   ArticleCard,
   ClipCard,
@@ -32,7 +34,7 @@ const generateArray = (array, queryFilter, key, Component, onOpen) => {
 }
 
 const getCards = (cards, queryFilter, onOpen) => {
-  if(!onOpen) onOpen = link => window.location = link
+  if(!onOpen) onOpen = link => navigate(link)
 
   let {
     articles,

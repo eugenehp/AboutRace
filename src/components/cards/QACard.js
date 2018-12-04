@@ -113,7 +113,7 @@ export class QACard extends React.Component {
     const qa = data
     const link = `/qa/${kebabCase(qa.title)}`
 
-    const fromEpisode = `from episode ${qa.field_belong_to_episode}`
+    const fromEpisode = `episode ${qa.field_belong_to_episode}`
     
     return (
       <Container

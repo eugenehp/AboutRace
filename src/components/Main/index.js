@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import get from 'lodash/get'
+import { Link } from 'gatsby'
 
 import {
   SVGLogoMain,
@@ -13,6 +14,8 @@ import {
   midnight,
   white
 } from '../../colors'
+
+import { graphql } from 'gatsby'
 
 const Container = styled.div`
   background-color: ${midnight};
@@ -76,6 +79,34 @@ const Slugline = styled.div`
   } 
 `
 
+const TrailerLink = styled.div`
+  max-width:1200px;
+  width: 100%;
+  height: 60px;
+  letter-spacing: 0.03em;
+
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+  position:absolute;
+  margin-left:20px;
+  bottom:20px;
+  @media (max-width: 812px) { /* mobile */
+    padding-top: 2em;
+    font-size: 18px;
+  } 
+  a{
+    font-family: 'Quicksand';
+    font-weight: 100;
+    font-size: 21px;
+    line-height: 24px;
+    color: ${white};
+    text-decoration:none;
+  }
+`
+
 const Image = styled.img`
   width: 100%;
   max-width: 1000px;
@@ -89,20 +120,58 @@ const Image = styled.img`
   } 
 `
 
-export default ({ data, location }) => {
-  const background = get(data, `taxonomyTermThemes.relationships.field_theme_image.localFile.childImageSharp.original.src`)
+//export default ({ data, location, bannerImages }) => {
+class Main extends Component {
 
-  const episodeOneSynopsis = get(data, `allNodeSynopsis.edges.node[1].field_episode_synopsis.processed`)
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      background: this.props.bannerImages[0].localFile.childImageSharp.original.src,
+      backgroundIndex: 0
+    };
+  }
+  componentDidMount() {
+    this.intervalID = setInterval(
+      () => this.tick(),
+      15000
+    );
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+  tick() {
+    let i = 0;
+    if(this.state.backgroundIndex >= (this.props.bannerImages.length - 1)){
+      i = 0;
+    }else{
+      i = this.state.backgroundIndex + 1
+    }
 
-  return (
-    <Container>
-      <TopContainer background={background}>
-        <MainLogo>
-          <Image src={LogoMain} />
-          <Slugline>An online companion to the award-winning documentary series</Slugline>
+    this.setState({
+      background: this.props.bannerImages[i].localFile.childImageSharp.original.src,
+      backgroundIndex: i
+    });
+  }
+  
 
-        </MainLogo>
-      </TopContainer>
-    </Container>
-  )
+  render() {
+    const { data, location, bannerImages } = this.props
+    const episodeOneSynopsis = get(data, `allNodeSynopsis.edges.node[1].field_episode_synopsis.processed`)
+    const linkPath = '/clips/trailer-just-because-race-doesnt-exist-in-biology-doesnt-mean-it-isnt-very-real-helping-shape-life-c'
+    return (
+      <Container>
+        <TopContainer background={this.state.background}>
+          <MainLogo>
+            <Image src={LogoMain} />
+            <Slugline>An online companion to the award-winning documentary series</Slugline>
+
+            <TrailerLink><Link to={linkPath}>View the trailer</Link></TrailerLink>
+          </MainLogo>
+        </TopContainer>
+      </Container>
+    )
+  }
 }
+
+export default Main

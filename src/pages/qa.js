@@ -72,6 +72,14 @@ class QA extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    localStorage.setItem('qaFilter', JSON.stringify(this.state))
+  }
+  componentWillMount() {
+    const filter = JSON.parse(localStorage.getItem('qaFilter'))
+    this.setState(filter)
+  }
+
   render() {
     const title = "Q&A"
     const faqs = get(this, `props.data.allNodeFaq.edges`).map(edge => edge.node)

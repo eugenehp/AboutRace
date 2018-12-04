@@ -155,16 +155,26 @@ const VideoContainer = styled.div`
   align-items: center;
 `
 
-const IMAGE_WIDTH = 682
-const IMAGE_HEIGHT = 384
+const ThemesContainer = styled.div`
+  background-color: #74a3bd;
+`
+
+
+const IMAGE_WIDTH = 500
+const IMAGE_HEIGHT = 300
+
+const VideoHolder = styled.div`
+  display:flex;
+  margin:20px 0px;
+`
 
 const VimeoContainer = styled.div`
   position: relative;
 
+  margin: 0px 10px;
+
   width: ${IMAGE_WIDTH}px;
   height: ${IMAGE_HEIGHT}px;
-
-  margin-top: 100px;
 
   @media (max-width: 812px) { /* mobile */
     width: 356px;
@@ -202,14 +212,37 @@ const Summary = styled.div`
   max-width: 510px;
   padding-bottom: 102px;
 
+  margin: 0px 10px;
+
   color: ${fogwhite};
 
   & p {
-    margin-top: 0;
+    padding: 10px;
+    margin: 0px;
   }
 
   @media (max-width: 812px) { /* mobile */
     display: none;
+  }
+
+  &:before{
+    content: '';
+    width: 25px;
+    height: 25px;
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    display: block;
+    float:left;
+    
+  }
+  &:after{
+    content: '';
+    width: 25px;
+    height: 25px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    display: block;
+    float:right;
   }
 `
 const Explore = styled.div`
@@ -217,10 +250,43 @@ const Explore = styled.div`
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: 14px;
-  background-color: ${smokeblue};
+  font-size: 18px;
   padding-top: 45px;
   padding-bottom: 30px;
+  width:100%;
+  text-align:center;
+
+`
+const ExploreInside  = styled.div`
+  width: auto;
+  display: inline-block;
+  &:before{
+    content:'';
+    width:50%;
+    height:2px;
+    display:block;
+    background:black;
+    float: left;
+    margin: 10px 12px;
+    margin-left:-50%;
+  }
+  &:after{
+    content:'';
+    width:50%;
+    height:2px;
+    display:block;
+    background:black;
+    float: right;
+    margin: 10px 12px;
+    margin-right: -50%;
+  }
+
+  &.light{
+    color:#fff;
+    &:before, &:after{
+      background:#fff;
+    }
+  }
 `
 
 const Image = styled.img`
@@ -242,19 +308,26 @@ const Image = styled.img`
 `
 
 const Video = ({videoId, image, under, summary}) => <VideoContainer>
-  <VimeoContainer background={image}>
-    <Vimeo
-      style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-      videoId={videoId}
-      playButton={
-        <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
-          <Image src={playButton} />
-        </div>
-      }
-    />
-  </VimeoContainer>
-  <Under dangerouslySetInnerHTML={{ __html: under }} />
-  <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+
+  <Explore><ExploreInside className="light" >Why relaunch this series?</ExploreInside></Explore>
+  {/* <Under dangerouslySetInnerHTML={{ __html: under }} /> */}
+  
+  <VideoHolder>
+    <VimeoContainer background={image}>
+      <Vimeo
+        style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+        videoId={videoId}
+        playButton={
+          <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
+            <Image src={playButton} />
+          </div>
+        }
+      />
+    </VimeoContainer>
+  
+    <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+  </VideoHolder>
+
 </VideoContainer>
 
 ///
@@ -279,13 +352,16 @@ class Index extends Component {
     const image = get(trailerClip, 'relationships.field_poster_image.localFile.publicURL')
 
     const trailerData = get(this, 'props.data.allTaxonomyTermHomePage.edges').map( ({node}) => node )[0]
+
+    const bannerImages = get(trailerData, 'relationships.field_home_page_top_image')
+
     // const summary = get(trailerData, 'field_site_summary_tagline.processed')
     const summary = get(trailerData, 'field_small_text_under_john_powe.processed')
     const under = get(trailerData, 'field_text_under_john_a_powell_v.processed')
 
     return (
       <Layout location={this.props.location}>
-        <Main data={this.props.data}/>
+        <Main data={this.props.data} bannerImages={bannerImages}/>
 
         <CardsContainer>
           {
@@ -299,6 +375,7 @@ class Index extends Component {
           }
         </CardsContainer>
 
+
         <Video
           videoId={videoId}
           image={image}
@@ -306,15 +383,15 @@ class Index extends Component {
           under={under}
         />
 
-        <Container>
-        <Explore style={{paddingLeft: 60}}>Themes from the films:</Explore>
+        <ThemesContainer>
+          <Explore><ExploreInside className="dark">Themes from the films:</ExploreInside></Explore>
 
           {
             edges.map( (edge, key) =>
               <ThemeCard key={key} data={edge} color={gradientColors[key]}/>
             )
           }
-        </Container>
+        </ThemesContainer>
       </Layout>
     )
   }
@@ -439,6 +516,20 @@ export const query = graphql`
           }
           field_small_text_under_john_powe {
             processed
+          }
+          relationships {
+            field_home_page_top_image {
+              localFile {
+                publicURL
+                childImageSharp {
+                  original {
+                    width
+                    height
+                    src
+                  }
+                }
+              }
+            }
           }
         }
       }

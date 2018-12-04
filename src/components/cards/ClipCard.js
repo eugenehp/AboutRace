@@ -169,7 +169,7 @@ export class ClipCard extends React.Component {
     const description = title
     const background = get(this, 'props.data.relationships.field_poster_image.localFile.publicURL')
     const field_episode = get(this, 'props.data.field_episode')
-    const fromEpisode = `from episode ${field_episode}`
+    const fromEpisode = `episode ${field_episode}`
 
     // const {title, uri} = clip.field_external_video_url
 

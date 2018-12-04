@@ -10,4 +10,4 @@ const Description = styled.div`
   color: ${smokegrey};
 `;
 
-export default props => <Description dangerouslySetInnerHTML={{ __html: props.children ? props.children.replace(new RegExp('p>', 'g'), 'span>'): null }} />;
+export default props => <Description  className="hoverExpand" dangerouslySetInnerHTML={{ __html: props.children ? props.children.replace(new RegExp('p>', 'g'), 'span>'): null }} />;

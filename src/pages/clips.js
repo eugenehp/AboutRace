@@ -66,17 +66,25 @@ const Filters = ({selected, select}) => <FiltersContainer>
 class Clips extends React.Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
       filter: 0
     };
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('clipFilter', JSON.stringify(this.state))
+  }
+  componentWillMount() {
+    const filter = JSON.parse(localStorage.getItem('clipFilter'))
+    this.setState(filter)
   }
 
   render() {
     const title = "Clips"
     const clips = get(this, `props.data.allNodeClip.edges`).map(edge => edge.node)
     const description = get(this, `props.data.allTaxonomyTermClipsPage.edges[0].node.description.processed`)
-
+    
     const props = {
       title,
       description,

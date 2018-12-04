@@ -67,24 +67,30 @@ const FiledUnderLinkContainerDiv = styled.div`
 `
 
 const FiledUnderLink = props => {
-  let {children, color, to} = props;
+  let {children, color, to, direction} = props;
 
   let arrowcolor = props.arrowcolor ? props.arrowcolor : color
 
   if(!color) color = black
+  if(!direction) direction = 'right'
   if(!to) to = '#'
+
+  let styleTransform = 'rotate(0deg)';
+  if(direction == 'left'){
+    styleTransform = 'rotate(180deg)';
+  }
 
   if(props.noLink)
   return (
     <FiledUnderLinkContainerDiv {...props} href={to} to={to} color={color}>
-      <SVGArrow style={{width: 25, marginRight: 10}} color={arrowcolor}/>
+      <SVGArrow style={{width: 25, marginRight: 10, transform:styleTransform}} color={arrowcolor}/>
       {children}
     </FiledUnderLinkContainerDiv>
   )
   else
   return (
     <FiledUnderLinkContainer {...props} href={to} to={to} color={color}>
-      <SVGArrow style={{width: 27, flexShrink:0, marginRight: 15}} color={arrowcolor}/>
+      <SVGArrow style={{width: 27, flexShrink:0, marginRight: 15, transform:styleTransform}} color={arrowcolor}/>
       {children}
     </FiledUnderLinkContainer>
   )

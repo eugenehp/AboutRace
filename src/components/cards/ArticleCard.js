@@ -35,6 +35,14 @@ const Container = styled(Card)`
   padding-right: 15px;
 
   z-index: 1;
+  & .hoverExpand{
+    transition:all 1s; 
+    max-height:0px;
+    overflow:hidden;
+  }
+  &:hover .hoverExpand{
+    max-height:300px;
+  }
 `
 
 const TopImage = styled.div`

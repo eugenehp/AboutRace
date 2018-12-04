@@ -104,7 +104,7 @@ const Text = styled.div`
 
 const CardsContainer = styled.div`
   display: flex;  
-  flex-direction: column; 
+  // flex-direction: column; 
   flex-wrap: wrap;
 
   justify-content: flex-start;
@@ -121,6 +121,12 @@ const CardsContainer = styled.div`
 
     min-width: 100vw;
   }
+`
+
+const ContentColumn = styled(Column)`
+  background:#fff;
+  border-radius: 10px;
+  padding: 30px;
 `
 
 const SideColumn = styled(Column)`
@@ -167,24 +173,14 @@ class Episode extends React.Component {
     return (
       <Container color={color}>
         <MobileRow>
-          <Column style={{flex:1}}>
+          <ContentColumn style={{flex:1}}>
             <SubTitle>episode {number}:</SubTitle>
             <Title>{title}</Title>
             <Text dangerouslySetInnerHTML={{ __html: synopsis }}/>
-          </Column>
+          </ContentColumn>
 
           <SideColumn>
-            <SubTitle>EXPLORE:</SubTitle>
-            {
-              subthemes.map( (subtheme, key) => <FiledUnderLink
-                  key={key}
-                  style={{paddingLeft:0}}
-                  color={black}
-                  to={'/subthemes/' + kebabCase(subtheme)}
-                >
-                {subtheme}
-              </FiledUnderLink>)
-            }
+            <SubTitle>RESOURCES:</SubTitle>
 
             <FiledUnderLink
               style={{paddingLeft: 0}}
@@ -201,13 +197,32 @@ class Episode extends React.Component {
               episode transcript
             </FiledUnderLink>
 
+            <SubTitle>EXPLORE:</SubTitle>
+            {
+              subthemes.map( (subtheme, key) => <FiledUnderLink
+                  key={key}
+                  style={{paddingLeft:0}}
+                  color={black}
+                  to={'/subthemes/' + kebabCase(subtheme)}
+                >
+                {subtheme}
+              </FiledUnderLink>)
+            }
+
             <SubTitle style={{marginTop: 50}}>CLIPS:</SubTitle>
 
-            <CardsContainer>
-              { relatedClips }
-            </CardsContainer>
+
 
           </SideColumn>
+        </MobileRow>
+        <MobileRow style={{paddingBottom:'0px'}}>
+          <SubTitle style={{width:'100%'}}>CLIPS:</SubTitle>
+        </MobileRow>
+        <MobileRow>
+          
+          <CardsContainer>
+            { relatedClips }
+          </CardsContainer>
         </MobileRow>
       </Container>
     )

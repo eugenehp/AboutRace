@@ -116,7 +116,7 @@ const Logo = styled.div`
 const pages = [
   { name: 'themes', link: '/themes' },
   { name: 'clips', link: '/clips' },
-  { name: 'teaching', link: '/teaching' },
+  { name: 'resources', link: '/teaching' },
   { name: 'interviews', link: '/interviews' },
   { name: 'articles', link: '/articles' },
   { name: 'qa', link: '/qa' },

@@ -295,6 +295,20 @@ class About extends React.Component {
                   <AboutImage background={aboutImage}/>
                   <Text fontWeight="bold" dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_about_image_description.processed] }}>
                   </Text>
+
+                  <FiledUnderLink
+                    color={black}
+                    to='/credits'
+                  >
+                    Series Credits
+                  </FiledUnderLink>
+                  <FiledUnderLink
+                    color={black}
+                    to='http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'
+                  >
+                    Order Film
+                  </FiledUnderLink>
+
                 </SubColumn>
                 <SubColumn flex="60%">
                   <SubTitle dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement_title.processed] }}>
@@ -313,12 +327,7 @@ class About extends React.Component {
           </Column>
 
           <Footer>
-            <FiledUnderLink
-              color={black}
-              to='/credits'
-            >
-              Series Credits
-            </FiledUnderLink>
+
           </Footer>
 
         </Container>

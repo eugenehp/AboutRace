@@ -590,7 +590,7 @@ const AllEntitiesContainer = styled(Row)`
 
 const AllEntitiesText = `All ${TICKER.toLowerCase()}s`
 const AllEntities = () => <AllEntitiesContainer>
-  <FiledUnderLink color={softblack} to='/interviews'>{AllEntitiesText}</FiledUnderLink>
+  <FiledUnderLink color={softblack} to='/interviews' direction={'left'}>{AllEntitiesText}</FiledUnderLink>
 </AllEntitiesContainer>
 
 ///
