@@ -198,9 +198,10 @@ class LessonPlan extends React.Component {
     const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
     const activities = get(this, `props.data.${nodeName}.field_activity`)
 
-    const activitiesBlocks = activities.map((activity) => 
-      <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
-    )
+    let activitiesBlocks = ''
+    activities.forEach(activity => {
+      activitiesBlocks += <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
+    })
 
     let episodeElement = '';
     if(episode != null){
