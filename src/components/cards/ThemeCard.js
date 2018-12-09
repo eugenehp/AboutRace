@@ -45,10 +45,9 @@ const Container = styled(Card)`
   &:hover .hoverExpand{
     max-height:300px;
   }
-
+  
 `
-
-const ClipTitle = styled.div`
+const ThemeTitle = styled.div`
   font-family: 'Quicksand';
   font-weight: 600;
   font-size: 20px;
@@ -179,17 +178,17 @@ const Image = styled.img`
   } 
 `
 
-export class ClipCard extends React.Component {
+export class ThemeCard extends React.Component {
   render() {
+    const data = get(this, 'props.data');
+    console.log(data);
     const { onOpen } = this.props
-    const title = get(this, 'props.data.title')
-    const link = `/clips/${kebabCase(title)}`
-    const description = get(this, 'props.data.field_overview.processed')
-    const background = get(this, 'props.data.relationships.field_poster_image.localFile.publicURL')
+    const title = get(this, 'props.data.name')
+    const link = `/themes#${kebabCase(title)}`
+    const description = get(this, 'props.data.description.processed')
+    const background = get(this, 'props.data.relationships.field_theme_image.localFile.publicURL')
     const field_episode = get(this, 'props.data.field_episode')
     const fromEpisode = `episode ${field_episode}`
-
-    // const data = get(this, 'props.data');
 
     // const {title, uri} = clip.field_external_video_url
 
@@ -198,13 +197,9 @@ export class ClipCard extends React.Component {
         <InnerContainer>
           <TopBlock>
           <TopImage background={background}/>
-
-            { field_episode && <TopTicker episodeNumber={field_episode}>{fromEpisode}</TopTicker> }
-              <Image src={playButton} />
-            <Ticker>film clip</Ticker>
           </TopBlock>
           <BottomBlock>
-            <ClipTitle>{title}</ClipTitle>
+            <ThemeTitle>{title}</ThemeTitle>
             <Description>{description}</Description>
           </BottomBlock>
         </InnerContainer>
@@ -213,4 +208,4 @@ export class ClipCard extends React.Component {
   }
 }
 
-export default ClipCard;
+export default ThemeCard;

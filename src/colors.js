@@ -22,6 +22,7 @@ export const midnight = '#19112E';
 export const lavendar = '#D8CBFF';
 export const concrete = '#ececec';
 export const luminous = '#0eff0c';
+export const lessonplan = '#9ED09C';
 
 export const backgroundColor = '#f7f7f7';
 export const darkBackgroundColor = '#202A37';

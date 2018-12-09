@@ -16,16 +16,62 @@ import {
   whiteShadowTrans,
   red,
   softblack,
+  lessonplan,
 } from '../../colors'
+import { SIGCHLD } from 'constants';
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom:10px;
+  label{
+    font-weight:bold;
+  }
 `
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+const Content = styled(Row)`
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 18px 0 72px 0;
+  align-items: flex-start;
+`
+
+const SideBar = styled(Column)`
+  display: none;
+
+  flex: 1;
+
+  padding-left: 60px;
+  padding-right: 30px;
+
+  @media (min-width: 1025px) { /* desktop */
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    display: none;
+  }
+
+  font-size: 20px;
+  padding: 35px;
+  background: white;
+  border-radius: 15px;
+  height: auto;
+  border:1px solid ${softblack};
+`
+
+const ContentBar = styled(Column)`
+  align-items: center;
+  padding-right: 60px;
+  flex:3;
 `
 
 const MainText = styled.div`
@@ -41,6 +87,8 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  background-color: ${lessonplan};
 
   @media (min-width: 1025px) { /* desktop */
 
@@ -66,15 +114,29 @@ const MobileRow = styled.div`
   }
 `
 
+const ContentBox = styled.div`
+  background:${white};
+  border:1px solid ${softblack};
+  border-radius:15px;
+  padding: 25px;
+  margin-bottom: 20px;
+`
+
 const Title = styled.div`
   font-family: 'Quicksand';
   font-weight: 500;
   font-size: 36px;
   line-height: 42px;
-
-  margin-bottom: 17px;
-
   color: ${softblack};
+`
+
+const SectionTitle = styled.div`
+font-family: 'Quicksand';
+font-weight: 500;
+font-size: 24px;
+line-height: 115%;
+color: ${softblack};
+text-align:center;
 `
 
 const SubTitle = styled.div`
@@ -96,6 +158,16 @@ const SubTitle = styled.div`
     padding-left: 0;
   }
 `
+const Episode = styled.div`
+font-size: 20px;
+margin: 5px 0px 10px;
+border: 1px solid;
+padding: 6px;
+border-radius: 5px;
+background: orange;
+display: inline-block;
+
+`
 
 class LessonPlan extends React.Component {
   componentDidMount() {
@@ -116,26 +188,81 @@ class LessonPlan extends React.Component {
     const authorCopyright = get(this, `props.data.${nodeName}.field_copyright_a.processed`)
     
 
+    const episode = get(this, `props.data.${nodeName}.field_episode`)
+    const subjects = get(this, `props.data.${nodeName}.field_subjects.processed`)
+    const grade_levels = get(this, `props.data.${nodeName}.field_grade_levels.processed`)
+    const time_allotment = get(this, `props.data.${nodeName}.field_time_allotment.processed`)
+
+    const assessment = get(this, `props.data.${nodeName}.field_assessment.processed`)
+    const materials = get(this, `props.data.${nodeName}.field_mat.processed`)
+    const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
+    const activities = get(this, `props.data.${nodeName}.field_activity`)
+
+    const activitiesBlocks = activities.map((activity) => 
+      <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
+    )
+
+    let episodeElement = '';
+    if(episode != null){
+      episodeElement = <Episode>Episode {episode}</Episode>
+    }else{
+      episodeElement = '';
+    }
+
     return (
       <Container>
         <MobileRow>
-          <Column style={{flex:3}}>
-            <Row>
-            <Title>{title}</Title>
-            </Row>
-            <Column>
-              <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-            </Column>
-            <Column>
-              <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
-            </Column>
-            <SubTitle>materials</SubTitle>
-          </Column>
-          <Column style={{flex:1, paddingLeft: 30}}>
-            <Row>Lesson Plan by {author}</Row>
-            <Row>{authorBio}</Row>
-            <Row>{authorCopyright}</Row>
-          </Column>
+          <Content>
+            <ContentBar>
+              <ContentBox>
+                <Title>{title}</Title>
+              </ContentBox>
+              <ContentBox>
+                <SectionTitle>Overview</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: description }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Objective</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Lesson Plan</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
+              </ContentBox>
+              
+              <ContentBox>
+                <SectionTitle>Materials</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Assessment</SectionTitle>
+                <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
+              </ContentBox>
+
+              <ContentBox>
+                <SectionTitle>Activities</SectionTitle>
+              </ContentBox>
+              {activitiesBlocks}
+
+
+            </ContentBar>
+            <SideBar>
+              <div>
+                {episodeElement}
+
+                <Row><label>Grade Levels:</label> {grade_levels}</Row>
+                <Row><label>Subjects:</label><br />{subjects}</Row>
+                <Row><label>Time Allotment:</label> {time_allotment}</Row>
+                <hr />
+                <Row>Lesson Plan by {author}</Row>
+                <Row>{authorBio}</Row>
+                <Row>{authorCopyright}</Row>
+              </div>
+            </SideBar>
+          </Content>
         </MobileRow>
       </Container>
     )

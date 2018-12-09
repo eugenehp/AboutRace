@@ -18,7 +18,7 @@ import {
   fogwhite,
   softblack,
   smokegrey,
-  clipTickerColor,
+  lessonplan,
 } from '../../colors'
 
 const Container = styled(Card)`
@@ -45,10 +45,9 @@ const Container = styled(Card)`
   &:hover .hoverExpand{
     max-height:300px;
   }
-
+  
 `
-
-const ClipTitle = styled.div`
+const ThemeTitle = styled.div`
   font-family: 'Quicksand';
   font-weight: 600;
   font-size: 20px;
@@ -100,16 +99,16 @@ const Ticker = styled.div`
   left: 0;
   bottom: 0;
 
-  display: none;
-
   font-family: 'Quicksand';
   font-weight: 500;
   font-size: 12px;
   line-height: 30px;
   letter-spacing: 0.22em;
 
+  color: ${smokegrey};
+
   border-top-right-radius: 3px;
-  background-color: ${clipTickerColor};
+  background-color: ${lessonplan};
 
   padding: 5px 15px;
   text-transform: uppercase;
@@ -178,33 +177,39 @@ const Image = styled.img`
     
   } 
 `
+const Episode = styled.div`
+font-size: 13px;
+margin: 5px 0px 0px;
+`
 
-export class ClipCard extends React.Component {
+
+export class LessonPlanCard extends React.Component {
   render() {
+    const data = get(this, 'props.data');
+
     const { onOpen } = this.props
     const title = get(this, 'props.data.title')
-    const link = `/clips/${kebabCase(title)}`
-    const description = get(this, 'props.data.field_overview.processed')
-    const background = get(this, 'props.data.relationships.field_poster_image.localFile.publicURL')
-    const field_episode = get(this, 'props.data.field_episode')
-    const fromEpisode = `episode ${field_episode}`
+    const link = `/lessons/${kebabCase(title)}`
+    const description = get(this, 'props.data.field_description.processed')
+    const background = get(this, 'props.data.relationships.field_main_image.localFile.publicURL')
+    const episode = get(this, 'props.data.field_episode')
 
-    // const data = get(this, 'props.data');
-
-    // const {title, uri} = clip.field_external_video_url
-
+    let episodeElement = '';
+    if(episode != null){
+      episodeElement = <Episode>Episode {episode}</Episode>
+    }else{
+      episodeElement = '';
+    }
     return (
       <Container onClick={ () => onOpen(link)} >
         <InnerContainer>
           <TopBlock>
-          <TopImage background={background}/>
-
-            { field_episode && <TopTicker episodeNumber={field_episode}>{fromEpisode}</TopTicker> }
-              <Image src={playButton} />
-            <Ticker>film clip</Ticker>
+            <TopImage background={background}/>
+            <Ticker>lesson plan</Ticker>
           </TopBlock>
           <BottomBlock>
-            <ClipTitle>{title}</ClipTitle>
+            <ThemeTitle>{title}</ThemeTitle>
+            {episodeElement}
             <Description>{description}</Description>
           </BottomBlock>
         </InnerContainer>
@@ -213,4 +218,4 @@ export class ClipCard extends React.Component {
   }
 }
 
-export default ClipCard;
+export default LessonPlanCard;

@@ -29,6 +29,16 @@ const Container = styled(Card)`
   padding-right: 15px;
 
   z-index: 1;
+
+  & .hoverExpand{
+    transition:all 1s; 
+    max-height:0px;
+    overflow:hidden;
+  }
+  &:hover .hoverExpand{
+    max-height:300px;
+  }
+
 `
 
 const TopImage = styled.div`
@@ -73,9 +83,9 @@ const InnerContainer = styled.div`
 const IntervieweeName = styled.div`
   font-family: 'Quicksand';
   font-weight: 600;
-  font-size: 14px;
-  line-height: 21px;
-  padding-bottom: 9px;
+  font-size: 20px;
+  letter-spacing: 0.00em;
+  line-height: 115%;
 `
 
 const Ticker = styled.div`
@@ -103,7 +113,7 @@ const BottomBlock = styled.div`
   flex-direction: column;
   padding: 15px;
   align-self: flex-end;
-  padding: 12px 30px 24px 30px;
+  padding: 12px 30px 15px 30px;
 `
 
 const Bio = styled.div`

@@ -3,5 +3,6 @@ export const DISPLAY_NAMES_TO_SLUG = new Map([
   [`interviews`, `interview`],
   [`Q&A`, `faq`],
   [`clips`, `clip`],
-  [`recently added`, `recent`]
+  [`recently added`, `recent`],
+  [`experts`, `expert`],
 ])

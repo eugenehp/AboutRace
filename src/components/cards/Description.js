@@ -8,6 +8,7 @@ const Description = styled.div`
   font-size: 14px;
   line-height: 18px;
   color: ${smokegrey};
+  margin-top:5px;
 `;
 
 export default props => <Description  className="hoverExpand" dangerouslySetInnerHTML={{ __html: props.children ? props.children.replace(new RegExp('p>', 'g'), 'span>'): null }} />;

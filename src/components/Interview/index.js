@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 import get from 'lodash/get'
-
+import { Link } from 'gatsby'
 import {
   FiledUnderLink,
   Overlay,
@@ -674,6 +674,11 @@ class Interview extends React.Component {
     const relationships = get(this, `props.data.${nodeName}.relationships.related_content`)
     const relatedContent = getRelatedContent(relationships)
     
+
+
+    const expertName = get(this, `props.data.${nodeName}.relationships.field_expert_reference.title`)  
+    const expertLink = `/experts/${kebabCase(expertName)}` 
+
     const LocalBackTo = () => backTo ? (
       <BackTo>
         <SubTitle>back to:</SubTitle>
@@ -685,7 +690,13 @@ class Interview extends React.Component {
 
     const DesktopSideBar = () => (
       <SideBar>
-        <AuthorImage background={authorImage}/>
+        {expertName ?
+          <Link style={{color:'inherit', textDecoration:'none'}} to={expertLink}>
+            <AuthorImage background={authorImage}/>
+          </Link>
+          :
+          <AuthorImage background={authorImage}/>
+        }
         <Bio dangerouslySetInnerHTML={{ __html: authorBio }}/>
         
         <SubTitle style={{marginTop: 90}}>explore:</SubTitle>
@@ -714,7 +725,13 @@ class Interview extends React.Component {
       <Column style={{color: darkWhite}}>
 
         <FirstMobileRow>
-          <AuthorImage background={authorImage}/>
+          {expertName ?
+            <Link style={{color:'inherit', textDecoration:'none'}} to={expertLink}>
+              <AuthorImage background={authorImage}/>
+            </Link>
+            :
+            <AuthorImage background={authorImage}/>
+          }
           <Bio dangerouslySetInnerHTML={{ __html: authorBio }}/>
         </FirstMobileRow>
 

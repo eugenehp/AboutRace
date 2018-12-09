@@ -32,6 +32,7 @@ export LessonPlan from './LessonPlan'
 export Episode from './Episode'
 export Credits from './Credits'
 export Transcript from './Transcript'
+export Expert from './Expert'
 
 export Teaching from './Teaching'
 export CollectionPage from './CollectionPage'

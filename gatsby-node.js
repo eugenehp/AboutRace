@@ -28,6 +28,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   const articleTemplate = path.resolve(`src/templates/article.js`)
   const clipTemplate = path.resolve(`src/templates/clip.js`)
   const interviewTemplate = path.resolve(`src/templates/interview.js`)
+  const expertTemplate = path.resolve(`src/templates/expert.js`)
   const qaTemplate = path.resolve(`src/templates/qa.js`)
   const lessonTemplate = path.resolve(`src/templates/lesson.js`)
   const episodeTemplate = path.resolve(`src/templates/episode.js`)
@@ -111,6 +112,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               }
             }
           }
+
+          allNodeExpert {
+            edges {
+              node {
+                id
+                title
+              }
+            }
+          }
+
           allNodeInterview {
             edges {
               node {
@@ -196,7 +207,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         // reject(result.errors);
       }
 
-
       // Create blog posts pages.
       _.each(result.data.allTaxonomyTermThemes.edges, (edge, index) => {
         const {field_theme_image, subthemes} = edge.node.relationships;
@@ -234,6 +244,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         createPage({
           path: `/articles/${kebabCase(edge.node.title)}`, // required
           component: articleTemplate,
+          context: {
+            id: edge.node.id,
+          },
+        })
+      })
+
+      _.each(result.data.allNodeExpert.edges, edge => {
+        createPage({
+          path: `/experts/${kebabCase(edge.node.title)}`, // required
+          component: expertTemplate,
           context: {
             id: edge.node.id,
           },

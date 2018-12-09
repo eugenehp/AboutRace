@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import kebabCase from '../../utils/kebabCase'
 import get from 'lodash/get'
 
+import Answer from './Answer'
+
 import {
   FiledUnderLink,
   Overlay,
@@ -409,6 +411,12 @@ const Experts = styled(Column)`
 
   color: ${softblack};
 
+  // background: ${white};
+  // border-radius:15px;
+  // border:1px solid;
+  // padding:20px;
+
+
   @media (min-width: 1025px) { /* desktop */
   }
 
@@ -419,27 +427,18 @@ const Experts = styled(Column)`
   }
 `
 
-const ExpertTitle = styled.div`
-  font-family: 'ff-tisa-web-pro';
-  font-size: 24px;
-  font-weight: 500;
-  text-align: center;
-  line-height: 27px;
-  padding-bottom: 12px;
-`
+const ExpertColumn = styled(Column)`
+  position:relative;
+  margin-bottom: 90px;
+  color: ${softblack};
 
-const ExpertAnswer = styled.div`
-  font-family: 'ff-tisa-web-pro';
-  font-weight: 300;
-  font-size: 17px;
-  line-height: 24px;
-  padding-bottom: 18px;
-  & p {
-    margin-top:0;
-    margin-bottom: 1em;
-  }
-`
+  background: ${white};
+  border-radius:15px;
+  border:1px solid;
+  padding:20px;
+  overflow:hidden;
 
+`
 const MobileSideBarContainer = styled(Column)`
   color: ${darkWhite};
   width: 100vw;
@@ -576,16 +575,34 @@ class QA extends React.Component {
     const {tagName, tagCards} = this.state
     const {left, right} = this.state
     const {overlay} = this.props
-    
+
     const title = get(this, `props.data.${nodeName}.title`)
     const description = get(this, `props.data.${nodeName}.field_question_summary.processed`)
 
-    const field_expert_1  = get(this, `props.data.${nodeName}.field_expert_1.processed`)
-    const field_expert_1_answer  = get(this, `props.data.${nodeName}.field_expert_1_answer.processed`)
-    const field_expert_2 = get(this, `props.data.${nodeName}.field_expert_2.processed`)
-    const field_expert_3_name = get(this, `props.data.${nodeName}.field_expert_3_name.processed`)
-    const field_expert_4_name = get(this, `props.data.${nodeName}.field_expert_4_name.processed`)
+    const field_question_number  = get(this, `props.data.${nodeName}.field_question_number`)
+
+    // const field_expert_1  = get(this, `props.data.${nodeName}.field_expert_1.processed`)
+    // const field_expert_1_answer  = get(this, `props.data.${nodeName}.field_expert_1_answer.processed`)
+    // const field_expert_2 = get(this, `props.data.${nodeName}.field_expert_2.processed`)
+    // const field_expert_3_name = get(this, `props.data.${nodeName}.field_expert_3_name.processed`)
+    // const field_expert_4_name = get(this, `props.data.${nodeName}.field_expert_4_name.processed`)
+
+    // fields are janky.  
+    // field_expert_1 = 1, field_expert_2_answer = 2, field_expert_1_answer = 3, field_expert_4_answer = 4
+    const field_expert_1_answer = get(this, `props.data.${nodeName}.field_expert_1.processed`)
+    const field_expert_2_answer = get(this, `props.data.${nodeName}.field_expert_2_answer.processed`)
+    const field_expert_3_answer = get(this, `props.data.${nodeName}.field_expert_1_answer.processed`)
     const field_expert_4_answer = get(this, `props.data.${nodeName}.field_expert_4_answer.processed`)
+
+    const field_expert_1  = get(this, `props.data.${nodeName}.relationships.field_expert_1_reference`)
+    const field_expert_2  = get(this, `props.data.${nodeName}.relationships.field_expert_2_reference`)
+    const field_expert_3  = get(this, `props.data.${nodeName}.relationships.field_expert_3_reference`)
+    const field_expert_4  = get(this, `props.data.${nodeName}.relationships.field_expert_4_reference`)
+
+    const field_expert_1_image  = get(this, `props.data.${nodeName}.relationships.field_expert_1_reference.relationships.field_main_image.localFile.publicURL`)
+    const field_expert_2_image  = get(this, `props.data.${nodeName}.relationships.field_expert_2_reference.relationships.field_main_image.localFile.publicURL`)
+    const field_expert_3_image  = get(this, `props.data.${nodeName}.relationships.field_expert_3_reference.relationships.field_main_image.localFile.publicURL`)
+    const field_expert_4_image  = get(this, `props.data.${nodeName}.relationships.field_expert_4_reference.relationships.field_main_image.localFile.publicURL`)
 
     const filedUnder = getFiledUnder(get(this, `props.data.${nodeName}.relationships.field_belongs_to_subtheme`))
     const tags = getTags(get(this, `props.data.${nodeName}.relationships.field_tags`))
@@ -595,9 +612,13 @@ class QA extends React.Component {
     // TODO: order of answers is messed up in Drupal, fix it there first.
 
     let answers = []
-    if(field_expert_1) answers.push({answer: field_expert_1, expert: field_expert_2})
-    if(field_expert_1_answer) answers.push({answer: field_expert_1_answer, expert: field_expert_3_name})
-    if(field_expert_4_answer) answers.push({answer: field_expert_4_answer, expert: field_expert_4_name})
+    if(field_expert_1) answers.push({answer: field_expert_1_answer, expert: field_expert_1, background: field_expert_1_image})
+    if(field_expert_2) answers.push({answer: field_expert_2_answer, expert: field_expert_2, background: field_expert_2_image})
+    if(field_expert_3) answers.push({answer: field_expert_3_answer, expert: field_expert_3, background: field_expert_3_image})
+    if(field_expert_4) answers.push({answer: field_expert_4_answer, expert: field_expert_4, background: field_expert_4_image})
+
+    // if(field_expert_1_answer) answers.push({answer: field_expert_1_answer, expert: field_expert_3_name})
+    // if(field_expert_4_answer) answers.push({answer: field_expert_4_answer, expert: field_expert_4_name})
 
     const renderTags = () => (
       <Tags>
@@ -659,7 +680,7 @@ class QA extends React.Component {
             <InnerTopContainer>
               { left && <Chevron to={left} left={true}/>}
               <TopCard>
-                <Question>Question:</Question>
+                <Question>Question {field_question_number}</Question>
                 <Title>{title}</Title>
                 <Description dangerouslySetInnerHTML={{ __html: description }}/>
               </TopCard>
@@ -671,17 +692,17 @@ class QA extends React.Component {
           <Answers>Answers:</Answers>
           <Experts>
           {
-            answers.map( ({answer, expert}, key) => <Row key={key}>
-              <Column>
-                <ExpertTitle>{expert}</ExpertTitle>
-                <ExpertAnswer dangerouslySetInnerHTML={{ __html: answer }}/>
-              </Column>
+            answers.map( ({answer, expert, background}, key) => <Row key={key}>
+              <ExpertColumn>
+              {/* {expert.relationships.field_main_image.localFile.publicURL} */}
+                <Answer answer={answer} expert={expert} background={background}></Answer>
+              </ExpertColumn>
             </Row>)
           }
           </Experts>
-          <Footer overlay={overlay}>
+          {/* <Footer overlay={overlay}>
             <MobileSideBar />
-          </Footer>
+          </Footer> */}
         </BottomContaniner>
       </Container>
     )

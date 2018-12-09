@@ -70,14 +70,14 @@ export const query = graphql`
         }
       }
     }
-    allNodeArticle(filter: { field_include_in_the_teaching_se: { eq: true }}) {
+    allNodeArticle(filter: { field_is_additional_resource: { eq: true }}) {
       edges {
         node {
           ... ArticleFragment
         }
       }
     }
-    allNodeInterview(filter: { field_include: { eq: true }}) {
+    allNodeInterview(filter: { field_is_additional_resource: { eq: true }}) {
       edges {
         node {
           ... InterviewFragment

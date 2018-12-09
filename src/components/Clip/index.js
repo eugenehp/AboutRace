@@ -4,6 +4,7 @@ import kebabCase from 'lodash/kebabCase'
 import get from 'lodash/get'
 
 import Vimeo from 'react-vimeo'
+import ReactPlayer from 'react-player'
 
 import playButton from '../../assets/images/PlayButton.png';
 
@@ -183,6 +184,7 @@ const Content = styled(Row)`
   max-width: 1360px;
   margin: 0 auto;
   padding: 18px 0 72px 0;
+  align-items: flex-start;
 `
 
 const SideBar = styled(Column)`
@@ -196,24 +198,33 @@ const SideBar = styled(Column)`
   @media (min-width: 1025px) { /* desktop */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
   }
 
   @media (max-width: 812px) { /* mobile */
     display: none;
   }
+
+
+  padding: 35px;
+  background: white;
+  border-radius: 15px;
+  height: auto;
+  border:1px solid ${softblack};
 `
 
 const ContentBar = styled(Column)`
   align-items: center;
   padding-right: 60px;
+  flex:3;
 `
 
 const SubTitle = styled.div`
   font-family: 'Quicksand';
   font-weight: 500;
-  font-size: 12px;
-  line-height: 28px;
+  font-size: 25px;
+  line-height: 100%;
+  margin-bottom:20px;
   letter-spacing: 0.12em;
 
   text-transform: uppercase;
@@ -267,7 +278,9 @@ const Tag = styled.div`
   margin-top: 15px;
 
   border-radius: 3px;
-  background-color: ${white};
+
+  background-color: #ffb558;
+  border: 1px solid ${softblack};
 `
 
 const CardsContainer = styled.div`
@@ -297,8 +310,8 @@ const CardsContainer = styled.div`
   }
 `
 
-const IMAGE_WIDTH = 582
-const IMAGE_HEIGHT = 304
+const IMAGE_WIDTH = 800
+const IMAGE_HEIGHT = 500
 
 const MainImage = styled.div`
   cursor: pointer;
@@ -309,8 +322,7 @@ const MainImage = styled.div`
   width: ${IMAGE_WIDTH}px;
   height: ${IMAGE_HEIGHT}px;
 
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-radius: 15px;
 
   background-size: cover !important;
   background-attachment: fixed;
@@ -340,6 +352,23 @@ const Title = styled.div`
   border-bottom-right-radius: 15px;
 
   color: ${softblack};
+`
+const ClipDescription = styled.div`
+  width: calc(${IMAGE_WIDTH}px - 60px);
+
+  font-family: 'Quicksand';
+
+  font-size: 14px;
+  line-height: 18px;
+
+  background-color: ${fogwhite};
+  padding: 15px 30px 24px 30px;
+  border-radius: 15px;
+
+  margin-top:20px;
+
+  color: ${softblack};
+  border:1px solid ${softblack};
 `
 
 const Footer = styled(Row)`
@@ -492,9 +521,35 @@ class Clip extends React.Component {
     const fieldEpisode = get(this,`props.data.${nodeName}.field_episode`);
 
     // const background = get(this, `props.data.${nodeName}.relationships.field_poster_image.localFile.childImageSharp.original.src`)
-    const videoURL = get(this, `props.data.${nodeName}.field_external_video_url.uri`)
-    const videoId = videoURL ? videoURL.split('/').pop() : ''
+    let videoURL = get(this, `props.data.${nodeName}.field_external_video_url.uri`)
+    let videoId = videoURL ? videoURL.split('/').pop() : ''
+
+    
+
+    let videoPlayer;
+
+    console.log(videoURL)
+
+    
+    if(videoURL.includes('youtube.com')){
+      videoPlayer = <ReactPlayer 
+                      style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+                       url={videoURL} />
+    }else{
+      videoPlayer = <Vimeo
+                      style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+                      videoId={videoId}
+                      playButton={
+                        <CenteredContainer>
+                          <Image src={playButton} onClick={() => this.setState({background:null})}/>
+                        </CenteredContainer>
+                      }
+                    />
+    }
+
     const title = get(this, `props.data.${nodeName}.title`)
+    const description = get(this, `props.data.${nodeName}.field_overview.processed`)
+
     const introText = get(this, `props.data.${nodeName}.description.processed`)
 
     const filedUnder = getFiledUnder(get(this, `props.data.${nodeName}.relationships.field_belongs_to_subtheme`))
@@ -527,6 +582,15 @@ class Clip extends React.Component {
         <TopContainer overlay={overlay} fieldEpisode={fieldEpisode}>
           { !overlay && <AllEntities /> }
           <Content>
+            
+            <ContentBar>
+            
+              <MainImage background={this.state.background}>
+                {videoPlayer}
+
+              </MainImage>
+              <ClipDescription dangerouslySetInnerHTML={{ __html: description }} />
+            </ContentBar>
             <SideBar>
             <SubTitle>explore:</SubTitle>
               {
@@ -534,20 +598,7 @@ class Clip extends React.Component {
               }
               { renderTags() }
             </SideBar>
-            <ContentBar>
-              <MainImage background={this.state.background}>
-                <Vimeo
-                  style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-                  videoId={videoId}
-                  playButton={
-                    <CenteredContainer>
-                      <Image src={playButton} onClick={() => this.setState({background:null})}/>
-                    </CenteredContainer>
-                  }
-                />
-              </MainImage>
-              <Title>{title}</Title>
-            </ContentBar>
+
           </Content>
         </TopContainer>
         <BottomContaniner overlay={overlay}>

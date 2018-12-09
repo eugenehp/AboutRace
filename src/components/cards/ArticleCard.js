@@ -128,7 +128,7 @@ const BottomBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-end;
-  padding: 12px 30px 24px 30px;
+  padding: 12px 30px 15px 30px;
 `
 
 const Row = styled.div`

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
+import FlipMove from 'react-flip-move'
 
 import gradientColors from '../gradients'
 
@@ -15,7 +16,8 @@ import {
   Layout,
   Main,
   ThemeCard,
-  PlayButton
+  PlayButton,
+  CollectionPage
 } from '../components'
 
 import {
@@ -26,6 +28,8 @@ import {
   fogwhite,
   smokeblue
 } from '../colors'
+
+import getCards from '../utils/getCards'
 
 const Container = styled.div`
 
@@ -307,6 +311,32 @@ const Image = styled.img`
   } 
 `
 
+const HomeCardsContainer = styled(FlipMove)`
+  display: flex;  
+  flex-direction: row; 
+  flex-wrap: wrap;
+
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 50px;
+  padding-bottom: 70px;
+
+  @media (min-width: 1025px) { /* desktop */
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 200px;
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+
+    min-width: 100vw;
+  }
+`
+
 const Video = ({videoId, image, under, summary}) => <VideoContainer>
 
   <Explore><ExploreInside className="light" >Why relaunch this series?</ExploreInside></Explore>
@@ -338,12 +368,12 @@ class Index extends Component {
   }
   
   render() {
-    const edges = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node )
+    const themes = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node )
     const episodeOne = get(this, 'props.data.episodeOne')
     const episodeTwo = get(this, 'props.data.episodeTwo')
     const episodeThree = get(this, 'props.data.episodeThree')
 
-    const cards = [episodeOne, episodeTwo, episodeThree]
+    const cardsEpisodes = [episodeOne, episodeTwo, episodeThree]
     const numbers = ['one', 'two', 'three']
 
     const trailerClip = get(this, 'props.data.trailerClip')
@@ -359,13 +389,26 @@ class Index extends Component {
     const summary = get(trailerData, 'field_small_text_under_john_powe.processed')
     const under = get(trailerData, 'field_text_under_john_a_powell_v.processed')
 
+
+    const cards = { themes }
+
+    const title = ''
+    const description = ''
+    const props = {
+      title,
+      description,
+      cards
+    }
+
+    const relatedContent = getCards(cards)
+
     return (
       <Layout location={this.props.location}>
         <Main data={this.props.data} bannerImages={bannerImages}/>
 
         <CardsContainer>
           {
-            cards.map( (card, key) => <Card
+            cardsEpisodes.map( (card, key) => <Card
               to={'/episodes/'+numbers[key]}
               key={key}
               card={card}
@@ -386,11 +429,21 @@ class Index extends Component {
         <ThemesContainer>
           <Explore><ExploreInside className="dark">Themes from the films:</ExploreInside></Explore>
 
-          {
+          {/* {
             edges.map( (edge, key) =>
               <ThemeCard key={key} data={edge} color={gradientColors[key]}/>
             )
-          }
+          } */}
+
+          {/* <Container>
+            <CollectionPage {...props}/>
+          </Container> */}
+
+          <HomeCardsContainer>
+            { relatedContent }
+          </HomeCardsContainer>
+
+
         </ThemesContainer>
       </Layout>
     )

@@ -99,7 +99,10 @@ class Clips extends React.Component {
           <CollectionPage {...props}>
             <Filters
               selected={this.state.filter}
-              select={ filter => this.setState({filter}) }
+              select={ filter => {
+                localStorage.setItem('clipFilter', JSON.stringify(this.state))
+                this.setState({filter})
+              }}
             />
           </CollectionPage>
         </Container>
