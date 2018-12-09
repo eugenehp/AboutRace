@@ -73,11 +73,15 @@ class Clips extends React.Component {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('clipFilter', JSON.stringify(this.state))
+    if(!typeof localStorage === "undefined"){
+      localStorage.setItem('clipFilter', JSON.stringify(this.state))
+    }
   }
   componentWillMount() {
-    const filter = JSON.parse(localStorage.getItem('clipFilter'))
-    this.setState(filter)
+    if(!typeof localStorage === "undefined"){
+      const filter = JSON.parse(localStorage.getItem('clipFilter'))
+      this.setState(filter)
+    }
   }
 
   render() {

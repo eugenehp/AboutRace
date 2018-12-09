@@ -73,11 +73,15 @@ class QA extends React.Component {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('qaFilter', JSON.stringify(this.state))
+    if(!typeof localStorage === "undefined"){
+      localStorage.setItem('qaFilter', JSON.stringify(this.state))
+    }
   }
   componentWillMount() {
-    const filter = JSON.parse(localStorage.getItem('qaFilter'))
-    this.setState(filter)
+    if(!typeof localStorage === "undefined"){
+      const filter = JSON.parse(localStorage.getItem('qaFilter'))
+      this.setState(filter)
+    }
   }
 
   render() {

@@ -71,11 +71,15 @@ class ResourcesContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('resourceFilter', JSON.stringify(this.state))
+    if(!typeof localStorage === "undefined"){
+      localStorage.setItem('resourceFilter', JSON.stringify(this.state))
+    }
   }
   componentWillMount() {
-    const filter = JSON.parse(localStorage.getItem('resourceFilter'))
-    this.setState(filter)
+    if(!typeof localStorage === "undefined"){
+      const filter = JSON.parse(localStorage.getItem('resourceFilter'))
+      this.setState(filter)
+    }
   }
   
   componentDidMount() {
@@ -150,8 +154,10 @@ class ResourcesContainer extends React.Component {
             <Filters
               selected={this.state.filter}
               select={ filter => {
-                localStorage.setItem('resourceFilter', JSON.stringify(this.state))
-                this.setState({filter})
+                if(!typeof localStorage === "undefined"){
+                  localStorage.setItem('resourceFilter', JSON.stringify(this.state))
+                  this.setState({filter})
+                }
               }}
               //select={ filter => this.setState({filter}) }
             />
