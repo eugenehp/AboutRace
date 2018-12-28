@@ -52,15 +52,9 @@ class Themes extends React.Component {
         <div>
           {
             edges.map( (node, key) =>
-              <Link
-                ref={ re => {
-                  this.links[key] = re
-                }}
-                key={key}
-                to={'/themes/#'+kebabCase(node.name)}
-              >
+              <div id={kebabCase(node.name)}>
                 <ThemeCard data={node} color={gradientColors[key]}/>
-              </Link>
+              </div>     
             )
           }
         </div>

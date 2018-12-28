@@ -179,10 +179,8 @@ class ResourcesContainer extends React.Component {
             <Filters
               selected={this.state.filter}
               select={ filter => {
-                if(!typeof localStorage === "undefined"){
-                  localStorage.setItem('resourceFilter', JSON.stringify(this.state))
-                  this.setState({filter})
-                }
+                localStorage.setItem('resourceFilter', JSON.stringify(this.state))
+                this.setState({filter})
               }}
               //select={ filter => this.setState({filter}) }
             />
