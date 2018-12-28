@@ -34,7 +34,6 @@ export default ({ data, location }) => {
     cards
   }
 
-  console.log(props);
   return (
     <Layout location={location}>
       <Container>

@@ -181,7 +181,6 @@ const Image = styled.img`
 export class ThemeCard extends React.Component {
   render() {
     const data = get(this, 'props.data');
-    console.log(data);
     const { onOpen } = this.props
     const title = get(this, 'props.data.name')
     const link = `/themes#${kebabCase(title)}`

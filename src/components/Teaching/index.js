@@ -237,8 +237,21 @@ const LocalLink = styled(Link)`
 class Teaching extends React.Component {
   render() {
     const lessons = get(this, `props.data.allNodeLessonPlan.edges`)
-    const articles = get(this, `props.data.allNodeArticle.edges`).map(edge => edge.node)
-    const interviews = get(this, `props.data.allNodeInterview.edges`).map(edge => edge.node)
+
+    // const articles = get(this, `props.data.allNodeArticle.edges`).map(edge => edge.node)
+    const articleQuery = get(this, `props.data.allNodeArticle.edges`);
+    let articles = []
+    if(articleQuery != undefined){
+      articles = articleQuery.map(edge => edge.node)
+    }
+
+    // const interviews = get(this, `props.data.allNodeInterview.edges`).map(edge => edge.node)
+    const interviewQuery = get(this, `props.data.allNodeInterview.edges`);
+    let interviews = []
+    if(interviewQuery != undefined){
+      interviews = interviewQuery.map(edge => edge.node)
+    }
+
 
     const relatedContent = getCards({articles, interviews})
 

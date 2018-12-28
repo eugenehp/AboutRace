@@ -45,7 +45,7 @@ const FilterButton = styled.div`
   font-weight: ${props => props.selected ? 'bold' : 'none'};
 `
 
-const filterItems = ['all', 'episode one', 'episode two', 'episode three']
+const filterItems = ['all', 'episode one', 'episode two', 'episode three', 'Expert Connections']
 
 const Filters = ({selected, select}) => <FiltersContainer>
   View:
@@ -89,11 +89,36 @@ class Clips extends React.Component {
     const clips = get(this, `props.data.allNodeClip.edges`).map(edge => edge.node)
     const description = get(this, `props.data.allTaxonomyTermClipsPage.edges[0].node.description.processed`)
     
+    let that = this
+    let filteredClips = []
+    clips.forEach(function (item, index) {
+      //console.log(clips[index]);
+      // iterate through each item to determine whether it is popular or not
+      switch(that.state.filter){
+        case 0:
+          filteredClips.push(item)
+        break;
+        case 1:
+        case 2:
+        case 3:
+          if(clips[index].field_episode == that.state.filter){
+            filteredClips.push(item)
+          }
+        break;
+        case 4:
+          if(clips[index].field_is_expert_connection == true){
+            filteredClips.push(item)
+          }
+        break;
+      }
+    });
+
     const props = {
       title,
       description,
-      cards: { 
-        clips: clips.filter( ({field_episode}) => this.state.filter === 0 ? true : field_episode === this.state.filter )
+      cards: {
+        clips: filteredClips 
+        //clips: clips.filter( ({field_episode}) => this.state.filter === 0 ? true : field_episode === this.state.filter )
       }
     }
 

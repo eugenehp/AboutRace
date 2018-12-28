@@ -130,11 +130,13 @@ class Main extends Component {
       background: this.props.bannerImages[0].localFile.childImageSharp.original.src,
       backgroundIndex: 0
     };
+    // This binding is necessary to make `this` work in the callback
+    this.scrollToCards = this.scrollToCards.bind(this);
   }
   componentDidMount() {
     this.intervalID = setInterval(
       () => this.tick(),
-      15000
+      5000
     );
   }
   componentWillUnmount() {
@@ -154,6 +156,10 @@ class Main extends Component {
     });
   }
   
+  scrollToCards() {
+    var el = document.getElementById('CardsContainer');   
+    window.scrollTo({ top: el.offsetTop - 100, behavior: 'smooth' })
+  }
 
   render() {
     const { data, location, bannerImages } = this.props
@@ -161,12 +167,12 @@ class Main extends Component {
     const linkPath = '/clips/trailer-just-because-race-doesnt-exist-in-biology-doesnt-mean-it-isnt-very-real-helping-shape-life-c'
     return (
       <Container>
-        <TopContainer background={this.state.background}>
+        <TopContainer background={this.state.background} onClick={this.scrollToCards} >
           <MainLogo>
             <Image src={LogoMain} />
-            <Slugline>An online companion to the award-winning documentary series</Slugline>
+            <Slugline>An online companion to the award-winning documentary series discussing the origins and beliefs of what we call "Race"</Slugline>
 
-            <TrailerLink><Link to={linkPath}>View the trailer</Link></TrailerLink>
+            {/* <TrailerLink><Link to={linkPath}>View the trailer</Link></TrailerLink> */}
           </MainLogo>
         </TopContainer>
       </Container>

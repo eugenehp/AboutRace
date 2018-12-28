@@ -35,6 +35,7 @@ export const faqQuery = graphql`
         node {
           id
           title
+          field_question_number
           fields {
             slug
           }

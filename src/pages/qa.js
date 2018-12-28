@@ -86,8 +86,13 @@ class QA extends React.Component {
 
   render() {
     const title = "Q&A"
-    const faqs = get(this, `props.data.allNodeFaq.edges`).map(edge => edge.node)
+    let faqs = get(this, `props.data.allNodeFaq.edges`).map(edge => edge.node)
     const description = get(this, `props.data.taxonomyTermQAPage.description.processed`)
+
+    faqs.sort(function(a, b){
+      return a.field_question_number-b.field_question_number
+    })
+
 
     const props = {
       title,

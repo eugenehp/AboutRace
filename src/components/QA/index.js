@@ -490,28 +490,34 @@ class QA extends React.Component {
     let left = null
     let right = null
 
-    if(edges)
-    edges.forEach( (edge, key) => {
-      const {node: {id}} = edge;
-      if(currentId === id) {
-        if( key - 1 >= 0 ) {
-          const previous = edges[key - 1]
-          const {node: {fields: {slug}}} = previous
-          left = `/qa/${kebabCase(slug)}`
-          const {node: {title}} = previous
-          left = `/qa/${kebabCase(title)}`
-        }
+    if(edges){
 
-        if( key + 1 < totalCount) {
-          const next = edges[key + 1]
-          const {node: {fields: {slug}}} = next
-          right = `/qa/${kebabCase(slug)}`
-          const {node: {title}} = next
-          right = `/qa/${kebabCase(title)}`
+      edges.sort(function(a, b){
+        return a.node.field_question_number-b.node.field_question_number
+      })
+
+      edges.forEach( (edge, key) => {
+        const {node: {id}} = edge;
+        if(currentId === id) {
+          if( key - 1 >= 0 ) {
+            const previous = edges[key - 1]
+            const {node: {fields: {slug}}} = previous
+            left = `/qa/${kebabCase(slug)}`
+            const {node: {title}} = previous
+            left = `/qa/${kebabCase(title)}`
+          }
+
+          if( key + 1 < totalCount) {
+            const next = edges[key + 1]
+            const {node: {fields: {slug}}} = next
+            right = `/qa/${kebabCase(slug)}`
+            const {node: {title}} = next
+            right = `/qa/${kebabCase(title)}`
+          }
+          
         }
-        
-      }
-    })
+      })
+    }
   
     this.state = {
       left,

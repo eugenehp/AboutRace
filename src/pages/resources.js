@@ -87,10 +87,35 @@ class ResourcesContainer extends React.Component {
   }
 
   render() {
-    const articles = get(this, `props.data.allNodeArticle.edges`).map(edge => edge.node)
-    const interviews = get(this, `props.data.allNodeInterview.edges`).map(edge => edge.node)
-    const lessonplans = get(this, `props.data.allNodeLessonPlan.edges`).map(edge => edge.node)
-    const externalresources = get(this, `props.data.allNodeExternalResource.edges`).map(edge => edge.node)
+    
+    const articleQuery = get(this, `props.data.allNodeArticle.edges`);
+    let articles = []
+    if(articleQuery != undefined){
+      articles = articleQuery.map(edge => edge.node)
+    }
+
+    const interviewQuery = get(this, `props.data.allNodeInterview.edges`);
+    let interviews = []
+    if(interviewQuery != undefined){
+      interviews = interviewQuery.map(edge => edge.node)
+    }
+
+    const lessonPlanQuery = get(this, `props.data.allNodeLessonPlan.edges`);
+    let lessonplans = []
+    if(lessonPlanQuery != undefined){
+      lessonplans = lessonPlanQuery.map(edge => edge.node)
+    }
+    
+    const externalResourcesQuery = get(this, `props.data.allNodeExternalResource.edges`);
+    let externalresources = []
+    if(externalResourcesQuery != undefined){
+      externalresources = externalResourcesQuery.map(edge => edge.node)
+    }
+
+    //const articles = get(this, `props.data.allNodeArticle.edges`).map(edge => edge.node)
+    //const interviews = []//get(this, `props.data.allNodeInterview.edges`).map(edge => edge.node)
+    //const lessonplans = []//get(this, `props.data.allNodeLessonPlan.edges`).map(edge => edge.node)
+    //const externalresources = []//get(this, `props.data.allNodeExternalResource.edges`).map(edge => edge.node)
 
     const title = "Resources"
 

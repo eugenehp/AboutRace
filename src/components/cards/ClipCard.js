@@ -157,6 +157,9 @@ const TopTicker = styled.div`
   ${ props => props.episodeNumber && props.episodeNumber == "1" ? 'background-color: rgba(250, 205, 101, .83);' : null }
   ${ props => props.episodeNumber && props.episodeNumber == "2" ? 'background-color: rgba(255, 181, 88, .83);' : null }
   ${ props => props.episodeNumber && props.episodeNumber == "3" ? 'background-color: rgba(246, 149, 92, .83);' : null }
+
+  ${ props => props.isExpertConnection && props.isExpertConnection == "true" ? 'color: #fff;' : null }
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -188,7 +191,7 @@ export class ClipCard extends React.Component {
     const background = get(this, 'props.data.relationships.field_poster_image.localFile.publicURL')
     const field_episode = get(this, 'props.data.field_episode')
     const fromEpisode = `episode ${field_episode}`
-
+    const field_is_expert_connection = get(this, 'props.data.field_is_expert_connection')
     // const data = get(this, 'props.data');
 
     // const {title, uri} = clip.field_external_video_url
@@ -200,6 +203,7 @@ export class ClipCard extends React.Component {
           <TopImage background={background}/>
 
             { field_episode && <TopTicker episodeNumber={field_episode}>{fromEpisode}</TopTicker> }
+            { field_is_expert_connection && <TopTicker isExpertConnection="true" >expert connection</TopTicker> }
               <Image src={playButton} />
             <Ticker>film clip</Ticker>
           </TopBlock>

@@ -176,7 +176,7 @@ class LessonPlan extends React.Component {
   
   render() {
     const {overlay} = this.props
-    console.log(this.props)
+
     const nodeName = 'nodeLessonPlan'
 
     const title = get(this, `props.data.${nodeName}.title`)

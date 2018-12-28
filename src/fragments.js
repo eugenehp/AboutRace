@@ -490,6 +490,7 @@ export const ClipFragment = graphql`
     id
     field_episode
     title
+    field_is_expert_connection
     field_external_video_url {
       uri
     }
@@ -527,6 +528,7 @@ export const FullClipFragment = graphql`
     id
     field_episode
     title
+    field_is_expert_connection
     field_external_video_url {
       uri
       title

@@ -169,25 +169,35 @@ const IMAGE_HEIGHT = 300
 
 const VideoHolder = styled.div`
   display:flex;
-  margin:20px 0px;
+  margin:20px 0px 75px;
+  
+  @media (max-width: 1180px) { /* mobile */
+    display:block;
+  }
 `
 
 const VimeoContainer = styled.div`
   position: relative;
 
-  margin: 0px 10px;
+  margin: 0px 10px 100px;
 
   width: ${IMAGE_WIDTH}px;
   height: ${IMAGE_HEIGHT}px;
 
-  @media (max-width: 812px) { /* mobile */
+  @media (max-width: 1500px) { /* mobile */
     width: 356px;
     height: 200px;
+    margin: 0px auto 100px;
   }
 
   background-size:cover;
   background-position: center;
   background-image: ${props => props.background ?  `url(${props.background})` : `none`};
+`
+const VideoText = styled.div`
+  color:#fff;
+  margin-bottom:10px;
+  font-size:18px;
 `
 
 const Under = styled.div`
@@ -205,6 +215,23 @@ const Under = styled.div`
     margin: 15px;
   }
 `
+const SummaryContainer = styled.div`
+  max-width: 510px;
+  margin: 0px 10px;
+  padding-bottom: 45px;
+  a{
+    color: #fff!important;
+    font-size: 28px;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    img{
+      max-width: 75px;
+      display: inline-block;
+      margin: 0px 0px -22px -40px;
+    }
+  }
+`
 
 const Summary = styled.div`
   font-family: 'ff-tisa-web-pro';
@@ -214,9 +241,9 @@ const Summary = styled.div`
   text-align: center;
 
   max-width: 510px;
-  padding-bottom: 102px;
+  padding-bottom: 45px;
 
-  margin: 0px 10px;
+
 
   color: ${fogwhite};
 
@@ -226,7 +253,7 @@ const Summary = styled.div`
   }
 
   @media (max-width: 812px) { /* mobile */
-    display: none;
+   // display: none;
   }
 
   &:before{
@@ -337,25 +364,48 @@ const HomeCardsContainer = styled(FlipMove)`
   }
 `
 
-const Video = ({videoId, image, under, summary}) => <VideoContainer>
+const Video = ({videoId1,videoId2,videoText1,videoText2,image1, image2, under, summary}) => <VideoContainer>
 
   <Explore><ExploreInside className="light" >Why relaunch this series?</ExploreInside></Explore>
   {/* <Under dangerouslySetInnerHTML={{ __html: under }} /> */}
   
+
   <VideoHolder>
-    <VimeoContainer background={image}>
-      <Vimeo
-        style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-        videoId={videoId}
-        playButton={
-          <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
-            <Image src={playButton} />
-          </div>
-        }
-      />
-    </VimeoContainer>
-  
-    <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+
+    {videoId1 &&
+      <VimeoContainer background={image1}>
+        <Vimeo
+          style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+          videoId={videoId1}
+          playButton={
+            <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
+              <Image src={playButton} />
+            </div>
+          }
+        />
+        <VideoText dangerouslySetInnerHTML={{ __html: videoText1 }} />
+      </VimeoContainer>
+    }
+    <SummaryContainer>
+      <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+      <Link to={'/clips/trailer'}>
+        <img src={require('../assets/images/white-play-button.png')} /> View the trailer
+      </Link>
+    </SummaryContainer>
+    {videoId2 &&
+      <VimeoContainer background={image2}>
+        <Vimeo
+          style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+          videoId={videoId2}
+          playButton={
+            <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
+              <Image src={playButton} />
+            </div>
+          }
+        />
+        <VideoText dangerouslySetInnerHTML={{ __html: videoText2 }} />
+      </VimeoContainer>
+    }
   </VideoHolder>
 
 </VideoContainer>
@@ -363,6 +413,11 @@ const Video = ({videoId, image, under, summary}) => <VideoContainer>
 ///
 
 class Index extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     setTimeout(()=>window.scrollTo(0,0),1)
   }
@@ -390,6 +445,21 @@ class Index extends Component {
     const under = get(trailerData, 'field_text_under_john_a_powell_v.processed')
 
 
+    const field_external_video_url_1 = get(trailerData, 'field_external_video_url_1.uri')
+    let videoId1 = field_external_video_url_1 ? field_external_video_url_1.split('/').pop() : ''
+    const field_external_video_url_2 = get(trailerData, 'field_external_video_url_2.uri')
+    let videoId2 = field_external_video_url_2 ? field_external_video_url_2.split('/').pop() : ''
+
+    if(videoId1 == videoId2){
+      videoId2 = null
+    }
+
+    const videoText1 = get(trailerData, 'field_textarea_1.processed')
+    const videoText2 = get(trailerData, 'field_textarea_2.processed')
+    
+    const image1 = get(trailerData, 'relationships.field_image_1.localFile.publicURL')
+    const image2 = get(trailerData, 'relationships.field_image_2.localFile.publicURL')
+
     const cards = { themes }
 
     const title = ''
@@ -404,9 +474,12 @@ class Index extends Component {
 
     return (
       <Layout location={this.props.location}>
-        <Main data={this.props.data} bannerImages={bannerImages}/>
+        <Main 
+          data={this.props.data} 
+          bannerImages={bannerImages}
+        />
 
-        <CardsContainer>
+        <CardsContainer id="CardsContainer">
           {
             cardsEpisodes.map( (card, key) => <Card
               to={'/episodes/'+numbers[key]}
@@ -420,8 +493,12 @@ class Index extends Component {
 
 
         <Video
-          videoId={videoId}
-          image={image}
+          videoId1={videoId1}
+          videoId2={videoId2}
+          videoText1={videoText1}
+          videoText2={videoText2}
+          image1={image1}
+          image2={image2}
           summary={summary}
           under={under}
         />
@@ -570,8 +647,44 @@ export const query = graphql`
           field_small_text_under_john_powe {
             processed
           }
+          field_external_video_url_1 {
+            uri
+          }
+          field_external_video_url_2 {
+            uri
+          }
+          field_textarea_1 {
+            processed
+          }
+          field_textarea_2 {
+            processed
+          }
           relationships {
             field_home_page_top_image {
+              localFile {
+                publicURL
+                childImageSharp {
+                  original {
+                    width
+                    height
+                    src
+                  }
+                }
+              }
+            }
+            field_image_1 {
+              localFile {
+                publicURL
+                childImageSharp {
+                  original {
+                    width
+                    height
+                    src
+                  }
+                }
+              }
+            }
+            field_image_2 {
               localFile {
                 publicURL
                 childImageSharp {
