@@ -51,7 +51,7 @@ class SubThemeCard extends React.Component {
     const title = data.name.indexOf(':') >= 0 ? data.name.split(':')[1] : data.name
     const description = data.description ? data.description.value : '!empty content, check drupal!'
     const link = `/subthemes/${kebabCase(data.name)}`
-
+    
     return (
       <Container href={link}>
         <Row>

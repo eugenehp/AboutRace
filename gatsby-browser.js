@@ -11,6 +11,7 @@
 import React, { createElement } from "react"
 import { Transition } from "react-transition-group"
 import createHistory from "history/createBrowserHistory"
+import "./src/styles/global.css"
 
 const getTransitionStyles = timeout => {
   return {

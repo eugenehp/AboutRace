@@ -57,7 +57,7 @@ const TopContainer = styled(Column)`
   background-color: ${smokegrey};
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -135,6 +135,7 @@ const Text = styled.div`
 
 const CardContainer = styled(Column)`
   width: 730px;
+  max-width:100%;
   margin-bottom: 30px;
 
   background-color: ${props => props.color ? props.color : '#FFDDAA'};

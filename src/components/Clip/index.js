@@ -59,8 +59,8 @@ const TopContainer = styled.div`
   width: 100%;
   height: auto;
 
-  background-color: ${ props => props.fieldEpisode ? episodeColors[props.fieldEpisode - 1] : null};
-  
+ // background-color: ${ props => props.fieldEpisode ? episodeColors[props.fieldEpisode - 1] : null};
+  background-color: #DBDBDB;
   @media (min-width: 1025px) { /* desktop */
 
   }
@@ -215,8 +215,9 @@ const SideBar = styled(Column)`
 
 const ContentBar = styled(Column)`
   align-items: center;
-  padding-right: 60px;
+  //padding-right: 60px;
   flex:3;
+  max-width:100%;
 `
 
 const SubTitle = styled.div`
@@ -310,10 +311,29 @@ const CardsContainer = styled.div`
   }
 `
 
-const IMAGE_WIDTH = 800
-const IMAGE_HEIGHT = 500
+const IMAGE_WIDTH = 950
+const IMAGE_HEIGHT = 600
+
+const ContentTitle = styled.div`
+  display: block;
+  flex-direction: row;
+
+  width: ${IMAGE_WIDTH}px;
+
+  text-align:left;
+  h1{
+    margin:0px 0px 10px;
+  }
+  h3{
+    margin:0px 0px 20px;
+  }
+  @media (max-width: 812px) { /* mobile */
+    max-width: 100%;
+  }
+`
 
 const MainImage = styled.div`
+  position:relative;
   cursor: pointer;
 
   display: flex;
@@ -322,7 +342,7 @@ const MainImage = styled.div`
   width: ${IMAGE_WIDTH}px;
   height: ${IMAGE_HEIGHT}px;
 
-  border-radius: 15px;
+  border-radius: 0px;
 
   background-size: cover !important;
   background-attachment: fixed;
@@ -334,7 +354,16 @@ const MainImage = styled.div`
   }
 
   @media (max-width: 812px) { /* mobile */
-    width: 100vw;
+    max-width: 100%;
+    width: 100%;
+    display: block;
+    height: auto;
+    min-height:300px;
+    .vimeo-embed{
+      height: 300px!important;
+      width: 100%!important;
+      max-height: 100%!important;
+    }
   }
 `
 
@@ -358,17 +387,27 @@ const ClipDescription = styled.div`
 
   font-family: 'Quicksand';
 
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 145%;
 
   background-color: ${fogwhite};
   padding: 15px 30px 24px 30px;
-  border-radius: 15px;
+  border-radius: 0px;
 
   margin-top:20px;
 
   color: ${softblack};
-  border:1px solid ${softblack};
+  //border:1px solid ${softblack};
+  p{
+    margin-top:0px;
+  }
+  p:first-child, p:last-child{
+    margin:0px
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    max-width: 100%;
+  }
 `
 
 const Footer = styled(Row)`
@@ -424,7 +463,7 @@ const MobileSubTitle = styled(SubTitle)`
 `
 
 const CenteredContainer = styled.div`
-  position: relative;
+  position: absolute;
 
   display: flex;
   justify-content: center;
@@ -520,11 +559,10 @@ class Clip extends React.Component {
     const {overlay} = this.props
     const fieldEpisode = get(this,`props.data.${nodeName}.field_episode`);
 
+
     // const background = get(this, `props.data.${nodeName}.relationships.field_poster_image.localFile.childImageSharp.original.src`)
     let videoURL = get(this, `props.data.${nodeName}.field_external_video_url.uri`)
     let videoId = videoURL ? videoURL.split('/').pop() : ''
-
-    
 
     let videoPlayer;
 
@@ -557,6 +595,12 @@ class Clip extends React.Component {
 
     const relatedContent = getRelatedContent(get(this, `props.data.${nodeName}.relationships.field_article_related_content`))
 
+    let subtitle = null
+
+    if(fieldEpisode){
+      subtitle = "Episode "+fieldEpisode;
+    }
+
     const renderTags = () => (
       <Tags>
         {
@@ -584,20 +628,23 @@ class Clip extends React.Component {
           <Content>
             
             <ContentBar>
-            
+              <ContentTitle>
+                <h1>{title}</h1>
+                <h3>{subtitle}</h3>
+              </ContentTitle>
               <MainImage background={this.state.background}>
                 {videoPlayer}
 
               </MainImage>
               <ClipDescription dangerouslySetInnerHTML={{ __html: description }} />
             </ContentBar>
-            <SideBar>
+            {/* <SideBar>
             <SubTitle>explore:</SubTitle>
               {
                 filedUnder.map( ({name, link}, key) => <FiledUnderLink key={key} to={link} color={softblack}>{name}</FiledUnderLink>)
               }
               { renderTags() }
-            </SideBar>
+            </SideBar> */}
 
           </Content>
         </TopContainer>

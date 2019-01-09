@@ -25,6 +25,7 @@ const FiledUnderLinkContainer = styled(Link)`
   font-size: 24px;
   
   text-transform: capitalize;
+  text-decoration: none;
 
   color: ${props => props.color};
 

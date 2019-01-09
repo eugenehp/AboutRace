@@ -41,6 +41,7 @@ const MainImage = styled.div`
   @media (max-width: 812px) { /* mobile */
     width: 100vw;
     height: 50vh;
+    max-width:100%;
   }
 `
 
@@ -55,7 +56,8 @@ const Info = styled.div`
   }
 
   @media (max-width: 812px) { /* mobile */
-    
+    width:100%;
+    padding:30px 0px;
   }
 `
 
@@ -101,6 +103,10 @@ const DetailContainer = styled.div`
   background-color: ${wetpaint};
   padding: 15px;
   padding-left: 30px;
+  @media (max-width: 812px) { /* mobile */
+    flex-direction:column-reverse;
+    padding-left:15px;
+  }
 `
 
 const LeftCol = styled.div`
@@ -122,7 +128,7 @@ const RightCol = styled.div`
   }
 
   @media (max-width: 812px) { /* mobile */
-
+    padding-left: 0px;
   }
 `
 

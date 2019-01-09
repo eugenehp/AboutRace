@@ -94,7 +94,7 @@ const Item = styled(Link)`
 const MobileItem = styled(Item)`
   display: none;
 
-  color: ${props => props.selected ? gold : smokeblue};
+  color: ${props => props.selected ? gold : smokeblue}!important;
 
   @media (max-width: 812px) { /* mobile */
     display: block;

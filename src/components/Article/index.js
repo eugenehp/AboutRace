@@ -123,7 +123,9 @@ const TextContainer = styled.div`
   }
 
   @media (max-width: 812px) { /* mobile */
-    width: 100vw;
+    //width: 100vw;
+    max-width:100%;
+    padding:42px 0px;
   }
 `
 

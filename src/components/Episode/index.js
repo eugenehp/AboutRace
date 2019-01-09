@@ -33,8 +33,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: ${props => props.color ? props.color : white };
-
+  //background-color: ${props => props.color ? props.color : white };
+  background-color: #DBDBDB;
   @media (min-width: 1025px) { /* desktop */
     
   }
@@ -125,7 +125,7 @@ const CardsContainer = styled.div`
 
 const ContentColumn = styled(Column)`
   background:#fff;
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 30px;
 `
 
@@ -209,8 +209,8 @@ class Episode extends React.Component {
               </FiledUnderLink>)
             }
 
-            <SubTitle style={{marginTop: 50}}>CLIPS:</SubTitle>
-
+            {/* <SubTitle style={{marginTop: 50}}>CLIPS:</SubTitle>
+ */}
 
 
           </SideColumn>

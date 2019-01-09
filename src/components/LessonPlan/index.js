@@ -63,7 +63,7 @@ const SideBar = styled(Column)`
   font-size: 20px;
   padding: 35px;
   background: white;
-  border-radius: 15px;
+  border-radius: 0px;
   height: auto;
   border:1px solid ${softblack};
 `
@@ -72,6 +72,9 @@ const ContentBar = styled(Column)`
   align-items: center;
   padding-right: 60px;
   flex:3;
+  @media (max-width: 812px) { /* mobile */
+   padding:0px;  
+  }
 `
 
 const MainText = styled.div`
@@ -117,9 +120,10 @@ const MobileRow = styled.div`
 const ContentBox = styled.div`
   background:${white};
   border:1px solid ${softblack};
-  border-radius:15px;
+  border-radius:0px;
   padding: 25px;
   margin-bottom: 20px;
+  width:100%;
 `
 
 const Title = styled.div`
@@ -198,10 +202,11 @@ class LessonPlan extends React.Component {
     const overview = get(this, `props.data.${nodeName}.field_overview.processed`)
     const activities = get(this, `props.data.${nodeName}.field_activity`)
 
-    let activitiesBlocks = ''
+    let activitiesBlocks = []
+
     if(activities != null){
       activities.forEach(activity => {
-        activitiesBlocks += <ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>
+        activitiesBlocks.push(<ContentBox><MainText dangerouslySetInnerHTML={{ __html: activity.processed }}/></ContentBox>)
       })
     }
 
@@ -220,36 +225,43 @@ class LessonPlan extends React.Component {
               <ContentBox>
                 <Title>{title}</Title>
               </ContentBox>
-              <ContentBox>
-                <SectionTitle>Overview</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Objective</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Lesson Plan</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
-              </ContentBox>
-              
-              <ContentBox>
-                <SectionTitle>Materials</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Assessment</SectionTitle>
-                <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
-              </ContentBox>
-
-              <ContentBox>
-                <SectionTitle>Activities</SectionTitle>
-              </ContentBox>
+              {description &&
+                <ContentBox>
+                  <SectionTitle>Overview</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: description }}/>
+                </ContentBox>
+              }
+              {overview &&
+                <ContentBox>
+                  <SectionTitle>Objective</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: overview }}/>
+                </ContentBox>
+              }
+              {lessonPlan &&
+                <ContentBox>
+                  <SectionTitle>Lesson Plan</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: lessonPlan }}/>
+                </ContentBox>
+              }
+              {materials &&
+                <ContentBox>
+                  <SectionTitle>Materials</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: materials }}/>
+                </ContentBox>
+              }
+              {assessment &&
+                <ContentBox>
+                  <SectionTitle>Assessment</SectionTitle>
+                  <MainText dangerouslySetInnerHTML={{ __html: assessment }}/>
+                </ContentBox>
+              }
+              {activitiesBlocks.length > 0 &&
+                <ContentBox>
+                  <SectionTitle>Activities</SectionTitle>
+                </ContentBox>
+              }
               {activitiesBlocks}
-
+              
 
             </ContentBar>
             <SideBar>
