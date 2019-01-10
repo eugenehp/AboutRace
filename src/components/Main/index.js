@@ -76,7 +76,9 @@ const Slugline = styled.div`
   @media (max-width: 812px) { /* mobile */
     padding-top: 2em;
     font-size: 18px;
+    height:auto;
   } 
+
 `
 
 const TrailerLink = styled.div`
