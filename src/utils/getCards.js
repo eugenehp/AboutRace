@@ -37,7 +37,14 @@ const generateArray = (array, queryFilter, key, Component, onOpen) => {
 }
 
 const getCards = (cards, queryFilter, onOpen) => {
-  if(!onOpen) onOpen = link => navigate(link)
+  if(!onOpen) onOpen = link => {
+    if(link.startsWith("http") === true){
+      window.location.href = link;
+    }else{
+      navigate(link)
+    }
+  }
+  
 
   let {
     articles,
