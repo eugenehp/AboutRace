@@ -50,7 +50,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeArticle {
+    allNodeArticle(filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...FullArticleFragment

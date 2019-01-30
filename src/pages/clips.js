@@ -144,7 +144,7 @@ export default Clips
 
 export const query = graphql`
   query ClipsQuery {
-    allNodeClip {
+    allNodeClip(filter: { title: { ne: "EMPTY" }}) {
 		  edges {
 		    node {
 		      ...FullClipFragment

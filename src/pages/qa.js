@@ -126,7 +126,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeFaq {
+    allNodeFaq(filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...FullQAFragment

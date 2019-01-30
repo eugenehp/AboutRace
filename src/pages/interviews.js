@@ -51,7 +51,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeInterview {
+    allNodeInterview(filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...FullInterviewFragment

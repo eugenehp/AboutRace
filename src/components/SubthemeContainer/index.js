@@ -245,6 +245,8 @@ class Subtheme extends React.Component {
 
     allCards = allCards.filter( allCards => !!allCards)
 
+    allCards = allCards.filter( card => card.props.data.title != 'EMPTY')
+
     // const title = card && card.title ? card.title : '';
     // const link = card && card.link ? card.link : '';
     // const description = card && card.field_short_version ? card.field_short_version.processed : null;

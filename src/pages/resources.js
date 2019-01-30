@@ -219,28 +219,28 @@ export const query = graphql`
       }
     }
     
-    allNodeLessonPlan {
+    allNodeLessonPlan(filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...LessonPlanFragment
         }
       }
     }
-    allNodeArticle(filter: { field_is_additional_resource: { eq: true }}) {
+    allNodeArticle(filter: { title: { ne: "EMPTY" }, field_is_additional_resource: { eq: true }}) {
       edges {
         node {
           ... ArticleFragment
         }
       }
     }
-    allNodeInterview(filter: { field_is_additional_resource: { eq: true }}) {
+    allNodeInterview(filter: { title: { ne: "EMPTY" }, field_is_additional_resource: { eq: true }}) {
       edges {
         node {
           ... InterviewFragment
         }
       }
     }
-    allNodeExternalResource{
+    allNodeExternalResource(filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ... ExternalResourceFragment
