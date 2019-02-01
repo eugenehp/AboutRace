@@ -423,7 +423,11 @@ class Index extends Component {
   }
   
   render() {
-    const themes = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node )
+    let themes = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node )
+    themes.sort(function(a, b){
+      return a.weight-b.weight
+    })
+
     const episodeOne = get(this, 'props.data.episodeOne')
     const episodeTwo = get(this, 'props.data.episodeTwo')
     const episodeThree = get(this, 'props.data.episodeThree')
@@ -560,6 +564,7 @@ export const query = graphql`
         node {
           id
           name
+          weight
           description {
             processed
           }

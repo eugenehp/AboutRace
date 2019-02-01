@@ -17,8 +17,12 @@ class Themes extends React.Component {
   constructor(props) {
     super(props);
 
-    const edges = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node)
-  
+    let edges = get(this, 'props.data.allTaxonomyTermThemes.edges').map( ({node}) => node)
+
+    edges.sort(function(a, b){
+      return a.weight-b.weight
+    })
+
     this.state = {
       edges
     };
@@ -73,6 +77,7 @@ export const pageQuery = graphql`
         node {
           id
           name
+          weight
           description {
             processed
           }

@@ -114,7 +114,7 @@ class Subtheme extends React.Component {
   }
 
   toggleFilter(value) {
-    console.log('toggleFilter', value)
+    // console.log('toggleFilter', value)
     if (this.state.filter === value) {
       this.setState({filter: null})
     } else {

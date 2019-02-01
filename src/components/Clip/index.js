@@ -566,8 +566,7 @@ class Clip extends React.Component {
 
     let videoPlayer;
 
-    console.log(videoURL)
-
+    // console.log(videoURL)
     
     if(videoURL.includes('youtube.com')){
       videoPlayer = <ReactPlayer 

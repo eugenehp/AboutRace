@@ -225,12 +225,7 @@ class LessonPlan extends React.Component {
               <ContentBox>
                 <Title>{title}</Title>
               </ContentBox>
-              {description &&
-                <ContentBox>
-                  <SectionTitle>Overview</SectionTitle>
-                  <MainText dangerouslySetInnerHTML={{ __html: description }}/>
-                </ContentBox>
-              }
+
               {overview &&
                 <ContentBox>
                   <SectionTitle>Objective</SectionTitle>
