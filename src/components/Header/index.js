@@ -160,9 +160,9 @@ class Header extends React.Component {
 
   render() {
     const {open} = this.state;
-    const currentSection = typeof window !== 'undefined' && window.location.pathname.split('/')[1]
+    //const currentSection = typeof window !== 'undefined' && window.location.pathname.split('/')[1]
     const innerPage = (this.props.pathname == "/") ? false : true;
-    console.log(this.props.pathname)
+    const pathPart = this.props.pathname.split('/')[1]
 
     return (
       <Container open={open} id="header">
@@ -182,7 +182,7 @@ class Header extends React.Component {
               <InnerItemContainer style={{ paddingRight: 60 + 'px' }}>
                 {
                   pages.map(({ name, link, target }, index) => <Item
-                    selected={name.indexOf(currentSection) >= 0}
+                    selected={link.indexOf(pathPart) >= 0}
                     href={link}
                     key={index}
                     target={target ? target : ''}
@@ -194,7 +194,7 @@ class Header extends React.Component {
             <HomeItemContainer >
               {
                 pages.map(({ name, link, target }, index) => <Item
-                  selected={name.indexOf(currentSection) >= 0}
+                  selected={link.indexOf(pathPart) >= 0}
                   href={link}
                   key={index}
                   target={target ? target : ''}
@@ -205,7 +205,7 @@ class Header extends React.Component {
         { open && <Link href='/'><SVGLogo/></Link> }
         {
           open && pages.map( ({name, link}, index) => <MobileItem
-            selected={name.indexOf(currentSection) >= 0}
+            selected={link.indexOf(pathPart) >= 0}
             to={link}
             key={index}
           >{name}</MobileItem>)
