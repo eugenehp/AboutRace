@@ -146,7 +146,7 @@ const pages = [
   { name: 'articles', link: '/articles' },
   { name: 'qa', link: '/qa' },
   { name: 'about', link: '/about' },
-  { name: 'order video', link: 'http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'}
+  { name: 'order video', link: 'http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION', target: '_BLANK'}
 ]
 
 class Header extends React.Component {
@@ -161,6 +161,8 @@ class Header extends React.Component {
   render() {
     const {open} = this.state;
     const currentSection = typeof window !== 'undefined' && window.location.pathname.split('/')[1]
+    const innerPage = (this.props.pathname == "/") ? false : true;
+    console.log(this.props.pathname)
 
     return (
       <Container open={open} id="header">
@@ -169,7 +171,7 @@ class Header extends React.Component {
           onClick={ e => this.setState({open: !open})}
         />
         {
-          (currentSection) ? [
+          (innerPage) ? [
             <InnerNavigationContainer>
               {/* //  <Logo><Link href='/'><SVGLogo /></Link></Logo> */}
               <Logo>
@@ -179,10 +181,11 @@ class Header extends React.Component {
               </Logo>
               <InnerItemContainer style={{ paddingRight: 60 + 'px' }}>
                 {
-                  pages.map(({ name, link }, index) => <Item
+                  pages.map(({ name, link, target }, index) => <Item
                     selected={name.indexOf(currentSection) >= 0}
                     href={link}
                     key={index}
+                    target={target ? target : ''}
                   >{(name)==='qa'? 'q&a': name}</Item>)
                 }
               </InnerItemContainer>
@@ -190,10 +193,11 @@ class Header extends React.Component {
           ] :
             <HomeItemContainer >
               {
-                pages.map(({ name, link }, index) => <Item
+                pages.map(({ name, link, target }, index) => <Item
                   selected={name.indexOf(currentSection) >= 0}
                   href={link}
                   key={index}
+                  target={target ? target : ''}
                 >{(name)==='qa'? 'q&a': name}</Item>)
               }
             </HomeItemContainer>
