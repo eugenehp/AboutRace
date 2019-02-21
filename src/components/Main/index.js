@@ -164,7 +164,7 @@ class Main extends Component {
   }
 
   render() {
-    const { data, location, bannerImages } = this.props
+    const { data, location, bannerImages, bannerTagline } = this.props
     const episodeOneSynopsis = get(data, `allNodeSynopsis.edges.node[1].field_episode_synopsis.processed`)
     const linkPath = '/clips/trailer-just-because-race-doesnt-exist-in-biology-doesnt-mean-it-isnt-very-real-helping-shape-life-c'
     return (
@@ -172,7 +172,7 @@ class Main extends Component {
         <TopContainer background={this.state.background} onClick={this.scrollToCards} >
           <MainLogo>
             <Image src={LogoMain} />
-            <Slugline>An online companion to the award-winning documentary series discussing the origins and beliefs of what we call "Race"</Slugline>
+            <Slugline dangerouslySetInnerHTML={{__html: bannerTagline}} />
 
             {/* <TrailerLink><Link to={linkPath}>View the trailer</Link></TrailerLink> */}
           </MainLogo>

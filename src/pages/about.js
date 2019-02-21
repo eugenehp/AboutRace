@@ -7,7 +7,8 @@ import episodes from '../utils/episodes-data'
 
 import {
   Layout,
-  FiledUnderLink
+  FiledUnderLink,
+  Link
 } from '../components'
 
 import { graphql } from 'gatsby'
@@ -101,7 +102,7 @@ const SubTitle = styled.div`
 `
 
 const InnerContainer = styled.div`
-  max-width: 850px;
+  max-width: 1200px;
   padding-top: 60px;
   display:flex;
 
@@ -109,6 +110,23 @@ const InnerContainer = styled.div`
     flex-direction:column;
   }
 
+
+  .order-link{
+    display: block;
+    font-size: 22px;
+    color: white;
+    background: #475158;
+    margin: 0px auto 25px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    &:hover{
+      //color: #475158;
+      //background: #fff;
+      opacity: .9;
+      box-shadow: 0px 0px 5px 0px #475158;
+    }
+  }
 `
 
 const SubColumn = styled.div`
@@ -260,7 +278,7 @@ class About extends React.Component {
       if(quotes.length == self.quoteIndex) self.quoteIndex = 0
       self.forceUpdate()
       self.quoteIndex++
-    }, 3000)
+    }, 6000)
   }
 
   componentDidMount() {
@@ -292,31 +310,39 @@ class About extends React.Component {
           <Column style={{alignItems: 'center'}}>
             <InnerContainer>
 
-                <SubColumn flex="40%">
+                <SubColumn flex="30%">
                   <AboutImage background={aboutImage}/>
                   <Text fontWeight="bold" dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_about_image_description.processed] }}>
                   </Text>
+                </SubColumn>
+                <SubColumn flex="45%">
+                  <SubTitle dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement_title.processed] }}>
+                  </SubTitle>
+                  <Text dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement.processed] }}>
+                  </Text>
+                </SubColumn>
 
+               <SubColumn flex="25%">
+              
+               {/* <Link
+                    to='http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'
+                  >
+                    Order Film
+                  </Link> */}
+
+                  <a class="order-link" style={{cursor: 'pointer', textDecoration: 'none'}} href={'http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'}>
+                  Order the video from California Newsreel
+                  </a>
+
+              
                   <FiledUnderLink
                     color={black}
                     to='/credits'
                   >
                     Series Credits
                   </FiledUnderLink>
-                  <FiledUnderLink
-                    color={black}
-                    to='http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'
-                  >
-                    Order Film
-                  </FiledUnderLink>
 
-                </SubColumn>
-                <SubColumn flex="60%">
-                  <SubTitle dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement_title.processed] }}>
-                  </SubTitle>
-                  <Text dangerouslySetInnerHTML={{ __html: [taxonomy[0].field_updated_ep_statement.processed] }}>
-                  </Text>
-                </SubColumn>
+              </SubColumn>
           
             </InnerContainer>
           </Column>

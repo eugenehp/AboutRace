@@ -388,7 +388,7 @@ const Video = ({videoId1,videoId2,videoText1,videoText2,image1, image2, under, s
     }
     <SummaryContainer>
       <Summary dangerouslySetInnerHTML={{ __html: summary }} />
-      <Link to={'/clips/trailer'}>
+      <Link to={'/clips/trailer-for-race-the-power-of-an-illusion'}>
         <img src={require('../assets/images/white-play-button.png')} /> View the trailer
       </Link>
     </SummaryContainer>
@@ -444,7 +444,7 @@ class Index extends Component {
 
     const bannerImages = get(trailerData, 'relationships.field_home_page_top_image')
 
-    // const summary = get(trailerData, 'field_site_summary_tagline.processed')
+    const bannerTagline = get(trailerData, 'field_site_summary_tagline.processed')
     const summary = get(trailerData, 'field_small_text_under_john_powe.processed')
     const under = get(trailerData, 'field_text_under_john_a_powell_v.processed')
 
@@ -481,6 +481,7 @@ class Index extends Component {
         <Main 
           data={this.props.data} 
           bannerImages={bannerImages}
+          bannerTagline={bannerTagline}
         />
 
         <CardsContainer id="CardsContainer">

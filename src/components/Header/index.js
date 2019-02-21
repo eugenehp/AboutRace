@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import Menu from './Menu'
 
+import { Link as GatsbyLink  } from 'gatsby'
+
 import {
   SVGLogo,
 } from '../'
@@ -120,7 +122,8 @@ const pages = [
   { name: 'interviews', link: '/interviews' },
   { name: 'articles', link: '/articles' },
   { name: 'qa', link: '/qa' },
-  { name: 'about', link: '/about' }
+  { name: 'about', link: '/about' },
+  { name: 'order video', link: 'http://newsreel.org/video/RACE-THE-POWER-OF-AN-ILLUSION'}
 ]
 
 class Header extends React.Component {
@@ -144,7 +147,14 @@ class Header extends React.Component {
         />
         {
           (currentSection) ? [
-            <Logo><Link href='/'><SVGLogo /></Link></Logo>,
+            <ItemsContainer>
+            {/* //  <Logo><Link href='/'><SVGLogo /></Link></Logo> */}
+            <Logo>
+              <GatsbyLink style={{cursor: 'pointer', textDecoration: 'none', color:'inherit'}} to={'/'}>
+                <SVGLogo />
+              </GatsbyLink>
+            </Logo>
+            </ItemsContainer>,
             <ItemsContainer style={{ paddingRight: 60 + 'px' }}>
               {
                 pages.map(({ name, link }, index) => <Item
