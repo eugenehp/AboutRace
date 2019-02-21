@@ -48,6 +48,12 @@ const Container = styled.div`
   }
 
   transition: all 0.3s ease-out;
+
+  #header-navigation{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 `
 
 const ItemsContainer = styled.div`
@@ -147,23 +153,25 @@ class Header extends React.Component {
         />
         {
           (currentSection) ? [
-            <ItemsContainer>
-            {/* //  <Logo><Link href='/'><SVGLogo /></Link></Logo> */}
-            <Logo>
-              <GatsbyLink style={{cursor: 'pointer', textDecoration: 'none', color:'inherit'}} to={'/'}>
-                <SVGLogo />
-              </GatsbyLink>
-            </Logo>
-            </ItemsContainer>,
-            <ItemsContainer style={{ paddingRight: 60 + 'px' }}>
-              {
-                pages.map(({ name, link }, index) => <Item
-                  selected={name.indexOf(currentSection) >= 0}
-                  href={link}
-                  key={index}
-                >{(name)==='qa'? 'q&a': name}</Item>)
-              }
-            </ItemsContainer>
+            <div id="header-navigation">
+              <ItemsContainer>
+              {/* //  <Logo><Link href='/'><SVGLogo /></Link></Logo> */}
+              <Logo>
+                <GatsbyLink style={{cursor: 'pointer', textDecoration: 'none', color:'inherit'}} to={'/'}>
+                  <SVGLogo />
+                </GatsbyLink>
+              </Logo>
+              </ItemsContainer>,
+              <ItemsContainer style={{ paddingRight: 60 + 'px' }}>
+                {
+                  pages.map(({ name, link }, index) => <Item
+                    selected={name.indexOf(currentSection) >= 0}
+                    href={link}
+                    key={index}
+                  >{(name)==='qa'? 'q&a': name}</Item>)
+                }
+              </ItemsContainer>
+            </div>
           ] :
             <ItemsContainer >
               {
