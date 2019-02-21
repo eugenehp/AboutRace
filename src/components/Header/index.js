@@ -49,15 +49,32 @@ const Container = styled.div`
 
   transition: all 0.3s ease-out;
 
-  #header-navigation{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  // #header-navigation{
+
+  // }
+`
+const InnerNavigationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const InnerItemContainer = styled.div`
+  // display: flex;
+  // align-items: center;
+
+  @media (min-width: 1025px) { /* desktop */
+  
+  }
+
+  @media (max-width: 812px) { /* mobile */
+    display: none;
   }
 `
 
-const ItemsContainer = styled.div`
-  
+const HomeItemContainer = styled.div`
+  // display: flex;
+  // align-items: center;
 
   @media (min-width: 1025px) { /* desktop */
   
@@ -153,16 +170,14 @@ class Header extends React.Component {
         />
         {
           (currentSection) ? [
-            <div id="header-navigation">
-              <ItemsContainer>
+            <InnerNavigationContainer>
               {/* //  <Logo><Link href='/'><SVGLogo /></Link></Logo> */}
               <Logo>
                 <GatsbyLink style={{cursor: 'pointer', textDecoration: 'none', color:'inherit'}} to={'/'}>
                   <SVGLogo />
                 </GatsbyLink>
               </Logo>
-              </ItemsContainer>,
-              <ItemsContainer style={{ paddingRight: 60 + 'px' }}>
+              <InnerItemContainer style={{ paddingRight: 60 + 'px' }}>
                 {
                   pages.map(({ name, link }, index) => <Item
                     selected={name.indexOf(currentSection) >= 0}
@@ -170,10 +185,10 @@ class Header extends React.Component {
                     key={index}
                   >{(name)==='qa'? 'q&a': name}</Item>)
                 }
-              </ItemsContainer>
-            </div>
+              </InnerItemContainer>
+            </InnerNavigationContainer>
           ] :
-            <ItemsContainer >
+            <HomeItemContainer >
               {
                 pages.map(({ name, link }, index) => <Item
                   selected={name.indexOf(currentSection) >= 0}
@@ -181,7 +196,7 @@ class Header extends React.Component {
                   key={index}
                 >{(name)==='qa'? 'q&a': name}</Item>)
               }
-            </ItemsContainer>
+            </HomeItemContainer>
         }
         { open && <Link href='/'><SVGLogo/></Link> }
         {

@@ -38,9 +38,6 @@ const SVGLogo = ({color, style}) =>
 </filter>
 </defs>
 </svg>
-
-
-
   </div>
 ///
 
