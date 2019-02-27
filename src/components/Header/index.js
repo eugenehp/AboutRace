@@ -104,11 +104,17 @@ const Item = styled(Link)`
 
   margin-left: 1em;
 
-  @media (min-width: 1025px) { /* desktop */
-    /*margin-right: 45px;*/
+  @media (min-width: 1335px) { 
     margin-left: 3vw;
     font-size: 12px;
     letter-spacing: 0.22em;
+  }
+
+  @media (max-width: 1334px) {
+    margin-left: 2vw;
+    font-size: 9pt;
+    display: inline-flex;
+    margin-bottom: 0.65em;
   }
 
   @media (max-width: 812px) { /* mobile */
@@ -135,6 +141,12 @@ const Logo = styled.div`
 
   @media (max-width: 812px) { /* mobile */
     display: none;
+  }
+
+  @media (max-width: 1224px) {
+    svg{
+      //max-width: 250px;
+    }
   }
 `
 

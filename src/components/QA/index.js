@@ -437,6 +437,13 @@ const ExpertColumn = styled(Column)`
   border:1px solid;
   padding:20px;
   overflow:hidden;
+  @media (min-width: 812px) { /* mobile */
+
+  width: 525px;
+  }
+  @media (max-width: 812px) { /* mobile */
+   // max-width: 100%;
+  }
 
 `
 const MobileSideBarContainer = styled(Column)`
@@ -474,6 +481,27 @@ const InnerTopContainer = styled(Row)`
 
   @media (max-width: 812px) { /* mobile */
 
+  }
+`
+
+const ContentTitle = styled.div`
+  display: block;
+  flex-direction: row;
+
+  text-align:left;
+
+  width: 560px;
+  text-align: left;
+  margin: 0px auto;
+
+  h1{
+    margin:0px 0px 10px;
+  }
+  h3{
+    margin:0px 0px 20px;
+  }
+  @media (max-width: 812px) { /* mobile */
+    max-width: 100%;
   }
 `
 
@@ -617,6 +645,9 @@ class QA extends React.Component {
 
     // TODO: order of answers is messed up in Drupal, fix it there first.
 
+    const header_title = "Ask the Scholars";
+    const header_subtitle = "Interviews from 2003";
+
     let answers = []
     if(field_expert_1) answers.push({answer: field_expert_1_answer, expert: field_expert_1, background: field_expert_1_image})
     if(field_expert_2) answers.push({answer: field_expert_2_answer, expert: field_expert_2, background: field_expert_2_image})
@@ -682,8 +713,15 @@ class QA extends React.Component {
         }
         <TopContainer overlay={overlay}>
           { !overlay && <AllEntities /> }
+          <ContentTitle>
+            <h1>{header_title}</h1>
+            <h3>{header_subtitle}</h3>
+          </ContentTitle>
           <CenterContainer>
+
             <InnerTopContainer>
+
+
               { left && <Chevron to={left} left={true}/>}
               <TopCard>
                 <Question>Question {field_question_number}</Question>
