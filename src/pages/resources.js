@@ -266,7 +266,7 @@ export const query = graphql`
         }
       }
     }
-    allNodeHandout(filter: { title: { ne: "EMPTY" }}) {
+    allNodeHandout(filter: { title: { ne: "EMPTY" }, field_show_in_resources: { eq: true }}) {
       edges {
         node {
           ... HandoutFragment

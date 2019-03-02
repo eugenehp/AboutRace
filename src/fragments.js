@@ -844,6 +844,7 @@ export const HandoutFragment = graphql`
     id
     field_resource_weight
     title
+    field_show_in_resources
     field_link {
       uri
       title
