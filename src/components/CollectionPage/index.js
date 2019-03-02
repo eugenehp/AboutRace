@@ -199,6 +199,17 @@ class CollectionPage extends React.Component {
 
     const relatedContent = getCards(cards)
 
+    if(this.props.sort != undefined){
+      switch(this.props.sort){
+        case 'field_resource_weight':
+
+          relatedContent.sort(function(a, b){
+            return a.props.data.field_resource_weight-b.props.data.field_resource_weight
+          })  
+        break;
+      }
+    }
+
     return (
       <Container>
         <TopContainer>

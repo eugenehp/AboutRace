@@ -10,7 +10,9 @@ import {
   QuickFactCard,
   ThemeCard,
   LessonPlanCard,
-  ExternalResourceCard
+  ExternalResourceCard,
+  HandoutCard,
+  AdditionalResourceCard,
 } from '../components/cards'
 
 const generate = (Component, key, object, onOpen) => <Component 
@@ -54,7 +56,9 @@ const getCards = (cards, queryFilter, onOpen) => {
     quickfacts,
     themes,
     lessonplans,
-    externalresources
+    externalresources,
+    handouts,
+    additionalresources
   } = cards
 
   if(!articles) articles = []
@@ -65,6 +69,8 @@ const getCards = (cards, queryFilter, onOpen) => {
   if(!themes) themes = []
   if(!lessonplans) lessonplans = []
   if(!externalresources) externalresources = []
+  if(!handouts) handouts = []
+  if(!additionalresources) additionalresources = []
 
   articles = generateArray(articles, queryFilter, 'article', ArticleCard, onOpen)
   clips = generateArray(clips, queryFilter, 'clip', ClipCard, onOpen)
@@ -74,6 +80,8 @@ const getCards = (cards, queryFilter, onOpen) => {
   themes = generateArray(themes, queryFilter, 'themes', ThemeCard, onOpen)
   lessonplans = generateArray(lessonplans, queryFilter, 'lessonplans', LessonPlanCard, onOpen)
   externalresources = generateArray(externalresources, queryFilter, 'externalresources', ExternalResourceCard, onOpen)
+  handouts = generateArray(handouts, queryFilter, 'handout', HandoutCard, onOpen)
+  additionalresources = generateArray(additionalresources, queryFilter, 'additionalresources', AdditionalResourceCard, onOpen)
 
   return [
     ...articles,
@@ -84,6 +92,8 @@ const getCards = (cards, queryFilter, onOpen) => {
     ...themes,
     ...lessonplans,
     ...externalresources,
+    ...handouts,
+    ...additionalresources,
   ]
 }
 

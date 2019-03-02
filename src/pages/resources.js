@@ -45,7 +45,7 @@ const FilterButton = styled.div`
   font-weight: ${props => props.selected ? 'bold' : 'none'};
 `
 
-const filterItems = ['all', 'lesson plans', 'additional resources', 'external resources', 'popular']
+const filterItems = ['all', 'lesson plans', 'additional resources', 'external resources', 'popular', 'handouts']
 
 const Filters = ({selected, select}) => <FiltersContainer>
   View:
@@ -87,7 +87,7 @@ class ResourcesContainer extends React.Component {
   }
 
   render() {
-    
+
     const articleQuery = get(this, `props.data.allNodeArticle.edges`);
     let articles = []
     if(articleQuery != undefined){
@@ -112,6 +112,18 @@ class ResourcesContainer extends React.Component {
       externalresources = externalResourcesQuery.map(edge => edge.node)
     }
 
+    const handoutQuery = get(this, `props.data.allNodeHandout.edges`);
+    let handouts = []
+    if(handoutQuery != undefined){
+      handouts = handoutQuery.map(edge => edge.node)
+    }
+
+    const AdditionalResourceQuery = get(this, `props.data.allNodeAdditionalResource.edges`);
+    let additionalresources = []
+    if(AdditionalResourceQuery != undefined){
+      additionalresources = AdditionalResourceQuery.map(edge => edge.node)
+    }
+
     //const articles = get(this, `props.data.allNodeArticle.edges`).map(edge => edge.node)
     //const interviews = []//get(this, `props.data.allNodeInterview.edges`).map(edge => edge.node)
     //const lessonplans = []//get(this, `props.data.allNodeLessonPlan.edges`).map(edge => edge.node)
@@ -123,7 +135,7 @@ class ResourcesContainer extends React.Component {
 
     //filter logic
 
-    let cards = {articles, interviews, lessonplans, externalresources}    
+    let cards = {articles, interviews, lessonplans, externalresources, handouts, additionalresources}    
 
     let that = this
 
@@ -137,7 +149,7 @@ class ResourcesContainer extends React.Component {
             }
           break;
           case 2:
-            if(key == 'articles' || key == 'interviews'){
+            if(key == 'articles' || key == 'interviews' || key == 'additionalresources'){
               
             }else{
               cards[key] = []
@@ -145,6 +157,11 @@ class ResourcesContainer extends React.Component {
           break;
           case 3:
             if(key != 'externalresources'){
+              cards[key] = []
+            }
+          break;
+          case 5:
+            if(key != 'handouts'){
               cards[key] = []
             }
           break;
@@ -164,7 +181,8 @@ class ResourcesContainer extends React.Component {
     const props = {
       title,
       description,
-      cards: cards
+      cards: cards,
+      sort: 'field_resource_weight'
     }
 
     return (
@@ -200,13 +218,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeHandout {
-      edges {
-        node {
-          title
-        }
-      }
-    }
+
     allNodeExternalLink {
       edges {
         node {
@@ -244,6 +256,20 @@ export const query = graphql`
       edges {
         node {
           ... ExternalResourceFragment
+        }
+      }
+    }
+    allNodeAdditionalResource(filter: { title: { ne: "EMPTY" }}) {
+      edges {
+        node {
+          ... AdditionalResourceFragment
+        }
+      }
+    }
+    allNodeHandout(filter: { title: { ne: "EMPTY" }}) {
+      edges {
+        node {
+          ... HandoutFragment
         }
       }
     }

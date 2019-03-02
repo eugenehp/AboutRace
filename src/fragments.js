@@ -21,6 +21,8 @@ export const PosterImageClipFragment = graphql`
 export const ArticleFragment = graphql`
   fragment ArticleFragment on node__article {
     title
+    field_weight
+    field_resource_weight
     field_is_additional_resource
     field_is_popular_resource
     field_short_version {
@@ -46,6 +48,8 @@ export const FullArticleFragment = graphql`
   fragment FullArticleFragment on node__article {
     __typename
     id
+    field_weight
+    field_resource_weight
     field_is_additional_resource
     field_is_popular_resource
     field_short_version {
@@ -168,6 +172,8 @@ export const FullArticleFragment = graphql`
 export const ExternalResourceFragment = graphql`
 fragment ExternalResourceFragment on node__external_resource {
   title
+  field_weight
+  field_resource_weight
   changed
   field_is_popular_resource
   field_overview {
@@ -190,6 +196,8 @@ fragment ExternalResourceFragment on node__external_resource {
 export const FullExternalResourceFragment = graphql`
 fragment FullExternalResourceFragment on node__external_resource {
   title
+  field_weight
+  field_resource_weight
   changed
   field_is_popular_resource
   field_overview {
@@ -254,6 +262,8 @@ export const FullExpertFragment = graphql`
 export const InterviewFragment = graphql`
   fragment InterviewFragment on node__interview {
     title
+    field_weight
+    field_resource_weight
     changed
     field_is_additional_resource
     field_is_popular_resource
@@ -280,6 +290,8 @@ export const FullInterviewFragment = graphql`
   fragment FullInterviewFragment on node__interview {
     __typename
     title
+    field_weight
+    field_resource_weight
     changed
     field_is_additional_resource
     field_is_popular_resource
@@ -488,6 +500,7 @@ export const FullQAFragment = graphql`
 export const ClipFragment = graphql`
   fragment ClipFragment on node__clip {
     id
+    field_weight
     field_episode
     title
     field_is_expert_connection
@@ -526,6 +539,7 @@ export const FullClipFragment = graphql`
   fragment FullClipFragment on node__clip {
     __typename
     id
+    field_weight
     field_episode
     title
     field_is_expert_connection
@@ -654,6 +668,8 @@ export const QuickfactWithRelatedContentFragment = graphql`
 export const LessonPlanFragment = graphql`
   fragment LessonPlanFragment on node__lesson_plan {
     id
+    field_weight
+    field_resource_weight
     title
     field_is_popular_resource
     field_episode
@@ -799,6 +815,47 @@ export const EpisodeThreeFragment = graphql`
     relationships {
       subthemes: field_explore_subthemes_re3 {
         name
+      }
+    }
+  }
+`
+
+export const AdditionalResourceFragment = graphql`
+  fragment AdditionalResourceFragment on node__additional_resource {
+    id
+    field_resource_weight
+    title
+    field_link {
+      uri
+      title
+    }
+    relationships {
+      field_main_image {
+        localFile {
+          publicURL
+        }
+      }
+    }
+  }
+`
+
+export const HandoutFragment = graphql`
+  fragment HandoutFragment on node__handout {
+    id
+    field_resource_weight
+    title
+    field_link {
+      uri
+      title
+    }
+    field_hand{
+      processed
+    }
+    relationships {
+      field_main_image {
+        localFile {
+          publicURL
+        }
       }
     }
   }

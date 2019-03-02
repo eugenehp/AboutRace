@@ -50,7 +50,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeArticle(filter: { title: { ne: "EMPTY" }}) {
+    allNodeArticle(sort: {fields: field_weight}, filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...FullArticleFragment

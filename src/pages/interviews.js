@@ -51,7 +51,7 @@ export const query = graphql`
         processed
       }
     }
-    allNodeInterview(filter: { title: { ne: "EMPTY" }}) {
+    allNodeInterview(sort: {fields: field_weight}, filter: { title: { ne: "EMPTY" }}) {
       edges {
         node {
           ...FullInterviewFragment
