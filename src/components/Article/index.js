@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 import get from 'lodash/get'
+import { Link } from 'gatsby'
 
 import {
   FiledUnderLink,
@@ -628,6 +629,9 @@ class Article extends React.Component {
 
     const relatedContent = getRelatedContent(get(this, `props.data.${nodeName}.relationships.field_article_related_content`))
     
+    const expertName = get(this, `props.data.${nodeName}.relationships.field_expert_reference.title`)  
+    const expertLink = `/experts/${kebabCase(expertName)}` 
+
     const LocalBackTo = () => (
       <BackTo>
         <SubTitle>back to:</SubTitle>
@@ -656,7 +660,15 @@ class Article extends React.Component {
 
     const DesktopSideBar = () => (
       <SideBar>
-        <AuthorImage background={authorImage}/>
+        {expertName ?
+          <Link style={{color:'inherit', textDecoration:'none'}} to={expertLink}>
+            <AuthorImage background={authorImage}/>
+          </Link>
+          :
+          <AuthorImage background={authorImage}/>
+        }
+
+
         <Bio dangerouslySetInnerHTML={{ __html: authorBio }}/>
         
         <SubTitle style={{marginTop: 90}}>explore:</SubTitle>

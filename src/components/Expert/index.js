@@ -117,7 +117,7 @@ const ExpertImage = styled.div`
 
 const ContentBar = styled(Column)`
   flex: 1;
-  margin-top: -30px;
+
 
   @media (min-width: 1025px) { /* desktop */
     

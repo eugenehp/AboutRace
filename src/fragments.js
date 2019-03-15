@@ -159,6 +159,12 @@ export const FullArticleFragment = graphql`
           }
         }
       }
+      field_expert_reference{
+        __typename
+        ... on node__expert {
+          ...ExpertFragment
+        }        
+      }
     }
     field_large_callout_text {
       processed

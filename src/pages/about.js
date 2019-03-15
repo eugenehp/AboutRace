@@ -275,9 +275,13 @@ class About extends React.Component {
     const self = this
 
     setInterval(() => {
+  
       if(quotes.length == self.quoteIndex) self.quoteIndex = 0
-      self.forceUpdate()
+      
       self.quoteIndex++
+
+      self.forceUpdate()
+
     }, 6000)
   }
 
