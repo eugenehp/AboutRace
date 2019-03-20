@@ -20,5 +20,12 @@ module.exports = {
         path: `${__dirname}/gatsby-config.js`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+        trackingId: "UA-136620314-1",
+      },
+    },
   ],
 }

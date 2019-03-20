@@ -8,6 +8,7 @@
     "babel-plugin-styled-components": "^1.5.1",
     "gatsby": "^2.0.0-beta.98",
     "gatsby-image": "^1.0.45",
+    "gatsby-plugin-google-analytics": "^2.0.17",
     "gatsby-plugin-react-helmet": "^2.0.8",
     "gatsby-plugin-sharp": "^1.6.42",
     "gatsby-plugin-styled-components": "^3.0.0-beta.2",
