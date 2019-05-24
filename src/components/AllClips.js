@@ -40,7 +40,7 @@ export const Clip = ({ clip, link }) =>  {
 			<ClipCard>
 				{
 					link ?
-						<Link style={{color:'inherit', textDecoration:'none'}} to={`/clips/${kebabCase(clip.title)}`}>
+						<Link style={{color:'inherit', textDecoration:'none'}} to={clip.path.alias}>
 							<ClipPoster background={clip.relationships.field_poster_image && clip.relationships.field_poster_image.localFile.publicURL} />
 							<ClipCaption>
 								{clip.title}

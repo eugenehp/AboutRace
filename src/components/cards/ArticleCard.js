@@ -157,7 +157,9 @@ export class ArticleCard extends React.Component {
   render() {
     const { data, onOpen } = this.props
     const article = data;
-    const link = `/articles/${kebabCase(article.title)}`
+
+    //const link = `/articles/${kebabCase(article.title)}`
+    const link = article.path.alias
 
     const background = get(article, 'relationships.field_main_image.localFile.publicURL')
     const description = get(article, 'field_article_summary.processed')

@@ -39,6 +39,9 @@ export const faqQuery = graphql`
           fields {
             slug
           }
+          path{
+            alias
+          }
         }
       }
     }

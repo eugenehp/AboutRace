@@ -630,7 +630,7 @@ class Article extends React.Component {
     const relatedContent = getRelatedContent(get(this, `props.data.${nodeName}.relationships.field_article_related_content`))
     
     const expertName = get(this, `props.data.${nodeName}.relationships.field_expert_reference.title`)  
-    const expertLink = `/experts/${kebabCase(expertName)}` 
+    const expertLink = get(this, `props.data.${nodeName}.relationships.field_expert_reference.path.alias`)  
 
     const LocalBackTo = () => (
       <BackTo>

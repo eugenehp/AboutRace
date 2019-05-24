@@ -26,7 +26,7 @@ class PlayablePoster extends React.Component {
 
     if (this.props.linkable) {
       return (
-        <Link to={`../clips/${kebabCase(this.props.clip.title)}`}>
+        <Link to={this.props.clip.path.alias}>
           <Poster>
             <img alt='poster image' src={this.props.clip.relationships.field_poster_image.localFile.publicURL} />
           </Poster>

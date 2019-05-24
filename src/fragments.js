@@ -15,6 +15,9 @@ export const PosterImageClipFragment = graphql`
         }
       }
     }
+    path{
+      alias
+    }
   }
 `;
 
@@ -40,6 +43,9 @@ export const ArticleFragment = graphql`
           publicURL
         }
       }
+    }
+    path{
+      alias
     }
   }
 `;
@@ -172,6 +178,9 @@ export const FullArticleFragment = graphql`
     field_full_version {
       processed
     }
+    path{
+      alias
+    }
   }
 `;
 
@@ -195,6 +204,9 @@ fragment ExternalResourceFragment on node__external_resource {
         publicURL
       }
     }
+  }
+  path{
+    alias
   }
 }
 `
@@ -241,6 +253,9 @@ export const ExpertFragment = graphql`
         }
       }
     }
+    path{
+      alias
+    }
   }
 `
 
@@ -261,6 +276,9 @@ export const FullExpertFragment = graphql`
           publicURL
         }
       }
+    }
+    path{
+      alias
     }
   }
 `
@@ -288,6 +306,9 @@ export const InterviewFragment = graphql`
           publicURL
         }
       }
+    }
+    path{
+      alias
     }
   }
 `
@@ -387,6 +408,9 @@ export const FullInterviewFragment = graphql`
         }        
       }
     }
+    path{
+      alias
+    }
   }
 `
 
@@ -401,6 +425,9 @@ export const QAFragment = graphql`
       processed
     }
     changed
+    path{
+      alias
+    }
   }
 `
 
@@ -500,6 +527,9 @@ export const FullQAFragment = graphql`
         }
       }
     }
+    path{
+      alias
+    }
   }
 `
 
@@ -537,6 +567,9 @@ export const ClipFragment = graphql`
           publicURL
         }
       }
+    }
+    path{
+      alias
     }
   }
 `
@@ -641,6 +674,9 @@ export const FullClipFragment = graphql`
           }
         }
       }
+    }
+    path{
+      alias
     }
   }
 `
@@ -754,6 +790,9 @@ export const LessonPlanFragment = graphql`
         }
       }
     }
+    path{
+      alias
+    }
   }
 `
 
@@ -842,6 +881,9 @@ export const AdditionalResourceFragment = graphql`
         }
       }
     }
+    path{
+      alias
+    }
   }
 `
 
@@ -864,6 +906,9 @@ export const HandoutFragment = graphql`
           publicURL
         }
       }
+    }
+    path{
+      alias
     }
   }
 `

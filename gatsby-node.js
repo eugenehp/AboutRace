@@ -109,6 +109,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 title
+                path{
+                  alias
+                }
               }
             }
           }
@@ -118,6 +121,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 title
+                path{
+                  alias
+                }
               }
             }
           }
@@ -127,6 +133,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 title
+                path{
+                  alias
+                }
               }
             }
           }
@@ -138,6 +147,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 fields {
                   slug
                 }
+                path{
+                  alias
+                }
               }
             }
           }
@@ -147,6 +159,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 title
+                path{
+                  alias
+                }
               }
             }
           }
@@ -156,6 +171,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 title
+                path{
+                  alias
+                }
                 field_activity{
                   processed
                 }
@@ -207,6 +225,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         // reject(result.errors);
       }
 
+      // debug for when build fails
+      // console.log(result)
+
       // Create blog posts pages.
       _.each(result.data.allTaxonomyTermThemes.edges, (edge, index) => {
         const {field_theme_image, subthemes} = edge.node.relationships;
@@ -242,7 +263,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeArticle.edges, edge => {
         createPage({
-          path: `/articles/${kebabCase(edge.node.title)}`, // required
+          //path: `/articles/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: articleTemplate,
           context: {
             id: edge.node.id,
@@ -252,7 +274,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeExpert.edges, edge => {
         createPage({
-          path: `/experts/${kebabCase(edge.node.title)}`, // required
+          //path: `/experts/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: expertTemplate,
           context: {
             id: edge.node.id,
@@ -262,7 +285,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeInterview.edges, edge => {
         createPage({
-          path: `/interviews/${kebabCase(edge.node.title)}`, // required
+          //path: `/interviews/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: interviewTemplate,
           context: {
             id: edge.node.id,
@@ -272,7 +296,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeFaq.edges, edge => {
         createPage({
-          path: `/qa/${kebabCase(edge.node.title)}`, // required
+          //path: `/qa/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: qaTemplate,
           context: {
             id: edge.node.id,
@@ -282,7 +307,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeClip.edges, edge => {
         createPage({
-          path: `/clips/${kebabCase(edge.node.title)}`, // required
+          //path: `/clips/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: clipTemplate,
           context: {
             id: edge.node.id,
@@ -292,7 +318,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       _.each(result.data.allNodeLessonPlan.edges, edge => {
         createPage({
-          path: `/lessons/${kebabCase(edge.node.title)}`, // required
+          //path: `/lessons/${kebabCase(edge.node.title)}`, // required
+          path: edge.node.path.alias,
           component: lessonTemplate,
           context: {
             id: edge.node.id,

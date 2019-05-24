@@ -388,7 +388,7 @@ const Video = ({videoId1,videoId2,videoText1,videoText2,image1, image2, under, s
     }
     <SummaryContainer>
       <Summary dangerouslySetInnerHTML={{ __html: summary }} />
-      <Link to={'/clips/trailer-for-race-the-power-of-an-illusion'}>
+      <Link to={'/videos/trailer-race-power-illusion'}>
         <img src={require('../assets/images/white-play-button.png')} /> View the trailer
       </Link>
     </SummaryContainer>

@@ -189,7 +189,8 @@ export class LessonPlanCard extends React.Component {
 
     const { onOpen } = this.props
     const title = get(this, 'props.data.title')
-    const link = `/lessons/${kebabCase(title)}`
+    //const link = `/lessons/${kebabCase(title)}`
+    const link = get(this, 'props.data.path.alias')
     const description = get(this, 'props.data.field_description.processed')
     const background = get(this, 'props.data.relationships.field_main_image.localFile.publicURL')
     const episode = get(this, 'props.data.field_episode')

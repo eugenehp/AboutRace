@@ -166,7 +166,7 @@ class Main extends Component {
   render() {
     const { data, location, bannerImages, bannerTagline } = this.props
     const episodeOneSynopsis = get(data, `allNodeSynopsis.edges.node[1].field_episode_synopsis.processed`)
-    const linkPath = '/clips/trailer-just-because-race-doesnt-exist-in-biology-doesnt-mean-it-isnt-very-real-helping-shape-life-c'
+    const linkPath = '/videos/trailer-race-power-illusion'
     return (
       <Container>
         <TopContainer background={this.state.background} onClick={this.scrollToCards} >

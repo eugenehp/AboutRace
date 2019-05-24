@@ -517,7 +517,7 @@ class QA extends React.Component {
 
     let left = null
     let right = null
-
+    
     if(edges){
 
       edges.sort(function(a, b){
@@ -529,18 +529,24 @@ class QA extends React.Component {
         if(currentId === id) {
           if( key - 1 >= 0 ) {
             const previous = edges[key - 1]
-            const {node: {fields: {slug}}} = previous
-            left = `/qa/${kebabCase(slug)}`
-            const {node: {title}} = previous
-            left = `/qa/${kebabCase(title)}`
+            // const {node: {fields: {slug}}} = previous
+            // left = `/qa/${kebabCase(slug)}`
+            // const {node: {title}} = previous
+            // left = `/qa/${kebabCase(title)}`
+
+            const {node: {path: {alias}}} = previous
+            left = alias
           }
 
           if( key + 1 < totalCount) {
             const next = edges[key + 1]
-            const {node: {fields: {slug}}} = next
-            right = `/qa/${kebabCase(slug)}`
-            const {node: {title}} = next
-            right = `/qa/${kebabCase(title)}`
+            // const {node: {fields: {slug}}} = next
+            // right = `/qa/${kebabCase(slug)}`
+            // const {node: {title}} = next
+            // right = `/qa/${kebabCase(title)}`
+
+            const {node: {path: {alias}}} = next
+            right = alias
           }
           
         }

@@ -596,6 +596,8 @@ class Clip extends React.Component {
 
     let subtitle = null
 
+    const path = get(this, `props.data.${nodeName}.path`)
+    console.log(this);
     if(fieldEpisode){
       subtitle = "Episode "+fieldEpisode;
     }

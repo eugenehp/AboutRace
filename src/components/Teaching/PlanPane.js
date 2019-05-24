@@ -392,8 +392,8 @@ class PlanPane extends React.Component {
     let subjects = get(this, 'props.data.relationships.field_subject_tags')
     const tags = subjects ? getTags(subjects) : []
 
-    const lessonLink = `/lessons/${kebabCase(title)}`
-
+    //const lessonLink = `/lessons/${kebabCase(title)}`
+    const lessonLink = get(this, 'props.data.path.alias')
     const renderTags = () => (
       <Tags>
         {

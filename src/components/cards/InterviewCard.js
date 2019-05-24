@@ -151,7 +151,8 @@ export class InterviewCard extends React.Component {
     const { data = {}, onOpen } = this.props
     const interview = data;
     
-    const link = `/interviews/${kebabCase(interview.title)}` 
+    //const link = `/interviews/${kebabCase(interview.title)}` 
+    const link = interview.path.alias
     const background = interview.relationships.field_interviewee.localFile.publicURL;
     const description = interview.field_interview_summary.processed;
 

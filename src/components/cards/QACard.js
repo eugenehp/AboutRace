@@ -111,7 +111,8 @@ export class QACard extends React.Component {
   render() {
     const {  data = {}, onOpen } = this.props
     const qa = data
-    const link = `/qa/${kebabCase(qa.title)}`
+   //const link = `/qa/${kebabCase(qa.title)}`
+    const link = qa.path.alias
 
     const fromEpisode = `episode ${qa.field_belong_to_episode}`
     

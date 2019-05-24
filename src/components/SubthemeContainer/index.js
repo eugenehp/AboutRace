@@ -180,8 +180,11 @@ class Subtheme extends React.Component {
       return
     }*/
 
-    window.location = `${entitiesLink}/${kebabCase(data.title)}`
-
+    if(data.path != undefined){
+      window.location = data.path.alias
+    }else{
+      window.location = `${entitiesLink}/${kebabCase(data.title)}`
+    }
     /*this.setState({
       popup: true,
       card: {...data, link},

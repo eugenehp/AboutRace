@@ -186,7 +186,8 @@ export class ClipCard extends React.Component {
   render() {
     const { onOpen } = this.props
     const title = get(this, 'props.data.title')
-    const link = `/clips/${kebabCase(title)}`
+    //const link = `/clips/${kebabCase(title)}`  
+    const link = get(this, 'props.data.path.alias')
     const description = get(this, 'props.data.field_overview.processed')
     const background = get(this, 'props.data.relationships.field_poster_image.localFile.publicURL')
     const field_episode = get(this, 'props.data.field_episode')
@@ -195,7 +196,6 @@ export class ClipCard extends React.Component {
     // const data = get(this, 'props.data');
 
     // const {title, uri} = clip.field_external_video_url
-
     return (
       <Container onClick={ () => onOpen(link)} >
         <InnerContainer>

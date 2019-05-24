@@ -122,8 +122,8 @@ class Answer extends React.Component {
         let toggleable = false;
         let toggleText = (this.state.expanded === false) ? '+' : '-';
 
-        const expertLink = `/experts/${kebabCase(expert.title)}` 
-
+        //const expertLink = `/experts/${kebabCase(expert.title)}` 
+        const expertLink = expert.path.alias
         if(answer.length > maxlength){
             toggleable = true;
             answer = (this.state.expanded === false) ? answer.substring(0, maxlength)+'...' : answer;
