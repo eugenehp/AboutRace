@@ -89,7 +89,13 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   subthemes: backref_field_belongs_to_theme {
                     id
                     name
+                    path{
+                      alias
+                    }
                   }
+                }
+                path{
+                  alias
                 }
               }
             }
@@ -100,6 +106,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               node {
                 id
                 name
+                path{
+                  alias
+                }
               }
             }
           }
@@ -233,12 +242,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         const {field_theme_image, subthemes} = edge.node.relationships;
         const {name} = edge.node;
         const themeName = name;
-        const path = `/themes/${kebabCase(name)}`;
+        //const path = `/themes/${kebabCase(name)}`;
+        const path = edge.node.path.alias;
         const color = gradientColors[index];
-        
-        subthemes.map( ({id, name}) => 
+
+        subthemes.map( ({id, name, path}) => 
           createPage({
-            path: `/subthemes/${kebabCase(name)}`, // required
+            //path: `/subthemes/${kebabCase(name)}`, // required
+            path: path.alias,
             component: subThemeTemplate,
             context: {
               id,

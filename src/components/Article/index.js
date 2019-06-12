@@ -468,10 +468,11 @@ const MobileColumn = styled(Column)`
 const getFiledUnder = array => {
   let results = []
 
-  array.map( ({name}) =>
+  array.map( ({name, path}) =>
     results.push({
       name,
-      link: `/subthemes/${kebabCase(name)}`
+      link: path.alias
+      //link: `/subthemes/${kebabCase(name)}`
     })
   )
 

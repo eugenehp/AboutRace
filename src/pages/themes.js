@@ -77,6 +77,9 @@ export const pageQuery = graphql`
         node {
           id
           name
+          path {
+            alias
+          }
           weight
           description {
             processed
@@ -108,6 +111,9 @@ export const pageQuery = graphql`
               id
               description {
                 value
+              }
+              path {
+                alias
               }
               relationships {
                 contentNodes: backref_field_belongs_to_subtheme {

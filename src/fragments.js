@@ -81,10 +81,16 @@ export const FullArticleFragment = graphql`
       field_belongs_to_subtheme {
         id
         name
+        path {
+          alias
+        }
         relationships {
           field_belongs_to_theme {
             id
             name
+            path {
+              alias
+            }
           }
         }
       }
@@ -356,10 +362,16 @@ export const FullInterviewFragment = graphql`
       field_which_subtheme_does_this_b {
         id
         name
+        path {
+          alias
+        }
         relationships {
           field_belongs_to_theme {
             id
             name
+            path {
+              alias
+            }
           }
         }
       }
@@ -463,10 +475,16 @@ export const FullQAFragment = graphql`
       field_belongs_to_subtheme {
         id
         name
+        path {
+          alias
+        }
         relationships {
           field_belongs_to_theme {
             id
             name
+            path {
+              alias
+            }
           }
         }
       }
@@ -617,10 +635,16 @@ export const FullClipFragment = graphql`
       field_belongs_to_subtheme {
         id
         name
+        path {
+          alias
+        }
         relationships {
           field_belongs_to_theme {
             id
             name
+            path {
+              alias
+            }
           }
         }
       }
@@ -814,6 +838,9 @@ export const EpisodeOneFragment = graphql`
     relationships {
       subthemes: field_explore_subthemes_related {
         name
+        path{
+          alias
+        }
       }
     }
   }
@@ -837,6 +864,9 @@ export const EpisodeTwoFragment = graphql`
     relationships {
       subthemes: field_explore_subthemes_re2 {
         name
+        path{
+          alias
+        }
       }
     }
   }
@@ -860,6 +890,9 @@ export const EpisodeThreeFragment = graphql`
     relationships {
       subthemes: field_explore_subthemes_re3 {
         name
+        path{
+          alias
+        }
       }
     }
   }

@@ -156,8 +156,9 @@ class Episode extends React.Component {
     const synopsis = get(this, 'props.data.synopsis.processed')
     const clips = get(this, 'props.clips')
 
-    const subthemes = get(this, 'props.data.relationships.subthemes').map( ({name}) => name)
-    
+    //const subthemes = get(this, 'props.data.relationships.subthemes').map( ({name}) => name)
+    const subthemes = get(this, 'props.data.relationships.subthemes')
+
     const relatedClips = getCards({
       articles: [],
       clips: clips,
@@ -203,9 +204,9 @@ class Episode extends React.Component {
                   key={key}
                   style={{paddingLeft:0}}
                   color={black}
-                  to={'/subthemes/' + kebabCase(subtheme)}
+                  to={subtheme.path.alias}
                 >
-                {subtheme}
+                {subtheme.name}
               </FiledUnderLink>)
             }
 

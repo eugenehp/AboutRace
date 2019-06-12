@@ -517,10 +517,11 @@ const getFiledUnder = array => {
   let results = []
   if(!array) return []
 
-  array && array.map( ({name}) =>
+  array && array.map( ({name, path}) =>
     results.push({
       name,
-      link: `/subthemes/${kebabCase(name)}`
+      link: path.alias
+      //link: `/subthemes/${kebabCase(name)}`
     })
   )
 
