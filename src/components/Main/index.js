@@ -65,16 +65,16 @@ const Slugline = styled.div`
   font-family: 'Quicksand';
   font-weight: 500;
   font-size: 21px;
-  line-height: 24px;
+  line-height: 135%;
   color: ${white};
   text-align: center;
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 15px;
 
   @media (max-width: 812px) { /* mobile */
-    padding-top: 2em;
+    //padding-top: 2em;
     font-size: 18px;
     height:auto;
   } 
@@ -113,8 +113,11 @@ const Image = styled.img`
   width: 100%;
   max-width: 1000px;
 
+  height:auto;
+  margin-bottom: 25px;
   @media (min-width: 1025px) { /* desktop */
     width: 90%;
+    max-width:90%;
   }
 
   @media (max-width: 812px) { /* mobile */
