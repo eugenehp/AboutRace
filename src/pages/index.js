@@ -193,6 +193,11 @@ const VimeoContainer = styled.div`
   background-size:cover;
   background-position: center;
   background-image: ${props => props.background ?  `url(${props.background})` : `none`};
+
+  .vimeo-embed{
+    background:#000;
+  }
+
 `
 const VideoText = styled.div`
   color:#fff;

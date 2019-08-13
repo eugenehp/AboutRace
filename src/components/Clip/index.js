@@ -366,6 +366,11 @@ const MainImage = styled.div`
       max-height: 100%!important;
     }
   }
+
+  .vimeo-embed{
+    background:#000;
+  }
+
 `
 
 const Title = styled.div`
