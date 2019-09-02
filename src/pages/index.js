@@ -369,51 +369,77 @@ const HomeCardsContainer = styled(FlipMove)`
   }
 `
 
-const Video = ({videoId1,videoId2,videoText1,videoText2,image1, image2, under, summary}) => <VideoContainer>
-
-  <Explore><ExploreInside className="light" >Why relaunch this series?</ExploreInside></Explore>
-  {/* <Under dangerouslySetInnerHTML={{ __html: under }} /> */}
+class Video extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    const image1 = get(props, `image1`)
+    const image2 = get(props, `image2`)
   
+    this.state = {
+      playing: false,
+      tagName: null,
+      tagCards: [],
+      image1,
+      image2
+    };
+  }
 
-  <VideoHolder>
+  render() {
+    const summary = get(this, `props.summary`)
+    const under = get(this, `props.under`)
+    const videoId1 = get(this, `props.videoId1`)
+    const videoId2 = get(this, `props.videoId2`)
+    const videoText1 = get(this, `props.videoText1`)
+    const videoText2 = get(this, `props.videoText2`)
+    console.log('video 2');
+    
+    return (
+       <VideoContainer>
+         <Explore><ExploreInside className="light" >Why relaunch this series?</ExploreInside></Explore>
+         {/* <Under dangerouslySetInnerHTML={{ __html: under }} /> */}
+         <VideoHolder>
 
-    {videoId1 &&
-      <VimeoContainer background={image1}>
-        <Vimeo
-          style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-          videoId={videoId1}
-          playButton={
-            <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
-              <Image src={playButton} />
-            </div>
-          }
-        />
-        <VideoText dangerouslySetInnerHTML={{ __html: videoText1 }} />
-      </VimeoContainer>
-    }
-    <SummaryContainer>
-      <Summary dangerouslySetInnerHTML={{ __html: summary }} />
-      <Link to={'/videos/trailer-race-power-illusion'}>
-        <img src={require('../assets/images/white-play-button.png')} /> View the trailer
-      </Link>
-    </SummaryContainer>
-    {videoId2 &&
-      <VimeoContainer background={image2}>
-        <Vimeo
-          style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-          videoId={videoId2}
-          playButton={
-            <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
-              <Image src={playButton} />
-            </div>
-          }
-        />
-        <VideoText dangerouslySetInnerHTML={{ __html: videoText2 }} />
-      </VimeoContainer>
-    }
-  </VideoHolder>
+           {videoId1 &&
+             <VimeoContainer background={this.state.image1}>
+               <Vimeo
+                 style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+                 videoId={videoId1}
+                 playButton={
+                   <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
+                     <Image src={playButton} onClick={() => this.setState({image1:null})}/>
+                   </div>
+                 }
+               />
+               <VideoText dangerouslySetInnerHTML={{ __html: videoText1 }} />
+             </VimeoContainer>
+           }
+           <SummaryContainer>
+             <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+             <Link to={'/videos/trailer-race-power-illusion'}>
+               <img src={require('../assets/images/white-play-button.png')} /> View the trailer
+             </Link>
+           </SummaryContainer>
+           {videoId2 &&
+             <VimeoContainer background={this.state.image2}>
+               <Vimeo
+                 style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
+                 videoId={videoId2}
+                 playButton={
+                   <div style={{position: 'relative', width: IMAGE_WIDTH, height: '100%'}}>
+                     <Image src={playButton} onClick={() => this.setState({image2:null})}/>
+                   </div>
+                 }
+               />
+               <VideoText dangerouslySetInnerHTML={{ __html: videoText2 }} />
+             </VimeoContainer>
+           }
+         </VideoHolder>
 
-</VideoContainer>
+       </VideoContainer>
+    )
+  }
+}
 
 ///
 
