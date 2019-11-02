@@ -6,6 +6,7 @@ import get from 'lodash/get'
 import berkley from './berkley.png'
 import cn from './cn.png'
 import haas from './haas.png'
+import belonging from './belonging.svg'
 import cultures from './cultures.png'
 
 import {
@@ -93,7 +94,7 @@ class Footer extends React.Component {
         <Row>a production of:</Row>
         <MobileRow>
           <ImageHolder>
-            <Image src={haas} />
+            <Image src={belonging} />
           </ImageHolder>
 
           <ImageHolder>
