@@ -130,6 +130,9 @@ export const pageQuery = graphql`
                   ... on node__quickfact {
                     title
                   }
+                  ... on node__external_resource {
+                    title
+                  }
                 }
               }
             }

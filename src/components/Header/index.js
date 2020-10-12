@@ -151,6 +151,7 @@ const Logo = styled.div`
 `
 
 const pages = [
+  // { name: 'events', link: '/events' },
   { name: 'themes', link: '/themes' },
   { name: 'videos', link: '/clips' },
   { name: 'resources', link: '/resources' },

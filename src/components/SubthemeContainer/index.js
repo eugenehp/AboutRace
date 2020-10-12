@@ -241,14 +241,21 @@ class Subtheme extends React.Component {
     } = this.state
 
     const rawCards = getCards(subtheme.relationships, filter, this.open)
+   
 
-    let allCards = filter ?
-      rawCards.sort((a, b) => (b.props.changed - a.props.changed)) :
-      reorder(rawCards, this.order)
+
+
+    // let allCards = filter ?
+    //   rawCards.sort((a, b) => (b.props.changed - a.props.changed)) :
+    //   reorder(rawCards, this.order)
+
+    let allCards = rawCards.sort((a, b) => (b.props.changed - a.props.changed))
+      console.log(allCards);
 
     allCards = allCards.filter( allCards => !!allCards)
 
     allCards = allCards.filter( card => card.props.data.title != 'EMPTY')
+
 
     // const title = card && card.title ? card.title : '';
     // const link = card && card.link ? card.link : '';

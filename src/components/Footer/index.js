@@ -5,7 +5,6 @@ import get from 'lodash/get'
 
 import berkley from './berkley.png'
 import cn from './cn.png'
-import haas from './haas.png'
 import belonging from './belonging.svg'
 import cultures from './cultures.png'
 

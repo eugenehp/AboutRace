@@ -210,6 +210,22 @@ fragment ExternalResourceFragment on node__external_resource {
         publicURL
       }
     }
+    field_belongs_to_subtheme {
+      id
+      name
+      path {
+        alias
+      }
+      relationships {
+        field_belongs_to_theme {
+          id
+          name
+          path {
+            alias
+          }
+        }
+      }
+    }
   }
   path{
     alias
@@ -235,6 +251,22 @@ fragment FullExternalResourceFragment on node__external_resource {
     field_main_image {
       localFile {
         publicURL
+      }
+    }
+    field_belongs_to_subtheme {
+      id
+      name
+      path {
+        alias
+      }
+      relationships {
+        field_belongs_to_theme {
+          id
+          name
+          path {
+            alias
+          }
+        }
       }
     }
   }
@@ -605,6 +637,9 @@ export const FullClipFragment = graphql`
       title
     }
     field_overview {
+      processed
+    }
+    field_full_version {
       processed
     }
     field_title_of_clip {

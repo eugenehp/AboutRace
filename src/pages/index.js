@@ -392,7 +392,7 @@ class Video extends React.Component {
     const videoId2 = get(this, `props.videoId2`)
     const videoText1 = get(this, `props.videoText1`)
     const videoText2 = get(this, `props.videoText2`)
-    console.log('video 2');
+ 
     
     return (
        <VideoContainer>

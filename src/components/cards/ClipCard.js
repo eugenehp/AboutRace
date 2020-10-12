@@ -41,6 +41,9 @@ const Container = styled(Card)`
     transition:all 1s; 
     max-height:0px;
     overflow:hidden;
+    img{
+      display:none;
+    }
   }
   &:hover .hoverExpand{
     max-height:300px;

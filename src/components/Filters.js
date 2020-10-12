@@ -64,13 +64,17 @@ const Filters = ({ queryParams, filter, subtheme, toggleFilter, color}) => {
         array.map(filterType => {
           const filterSlug = DISPLAY_NAMES_TO_SLUG.get(filterType)
 
+          let display_label = filterType;
+          if(filterType == 'externalresources'){
+            display_label = 'external resources'
+          }
           return (
             <Button
               key={filterType}
               onClick={ () => toggleFilter(filterSlug) }
               selected={filter === filterSlug}
             >
-              {filterType}
+              {display_label}
             </Button>
         )})
       }

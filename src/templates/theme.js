@@ -270,6 +270,9 @@ export const pageQuery = graphql`
             faqs: backref_field_belongs_to_subtheme_node_faq {
               ...QAFragment
             }
+            externalresources: backref_field_belongs_to_subtheme_node_external_resource {
+              ...ExternalResourceFragment
+            }
           }
         }
       }

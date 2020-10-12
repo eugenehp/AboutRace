@@ -47,6 +47,10 @@ const Container = styled(Card)`
   &:hover .hoverExpand{
     max-height:300px;
   }
+
+  a{
+    color: ${softblack};
+  }
   
 `
 const ThemeTitle = styled.div`
@@ -181,6 +185,13 @@ const Image = styled.img`
 `
 
 export class ExternalResourceCard extends React.Component {
+
+
+  goToResource() {
+    console.log('clicked')
+ 
+  }
+
   render() {
     const data = get(this, 'props.data');
 
@@ -191,17 +202,19 @@ export class ExternalResourceCard extends React.Component {
     const background = get(this, 'props.data.relationships.field_main_image.localFile.publicURL')
 
     return (
-      <Container onClick={ () => onOpen(link)} >
-        <InnerContainer>
-          <TopBlock>
-            <TopImage background={background}/>
-            <Ticker>external resource</Ticker>
-          </TopBlock>
-          <BottomBlock>
-            <ThemeTitle>{title}</ThemeTitle>
-            <Description>{description}</Description>
-          </BottomBlock>
-        </InnerContainer>
+      <Container onClick={this.goToResource} >
+        <a target="_BLANK" href={link}>
+          <InnerContainer>
+            <TopBlock>
+              <TopImage background={background}/>
+              <Ticker>external resource</Ticker>
+            </TopBlock>
+            <BottomBlock>
+              <ThemeTitle>{title}</ThemeTitle>
+              <Description>{description}</Description>
+            </BottomBlock>
+          </InnerContainer>
+        </a>
       </Container>
     )
   }

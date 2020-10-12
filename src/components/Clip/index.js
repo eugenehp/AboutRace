@@ -414,6 +414,9 @@ const ClipDescription = styled.div`
   @media (max-width: 812px) { /* mobile */
     max-width: 100%;
   }
+  img{
+    max-width:100%;
+  }
 `
 
 const Footer = styled(Row)`
@@ -577,7 +580,9 @@ class Clip extends React.Component {
     if(videoURL.includes('youtube.com')){
       videoPlayer = <ReactPlayer 
                       style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
-                       url={videoURL} />
+                       url={videoURL} 
+                       controls={true}
+                       />
     }else{
       videoPlayer = <Vimeo
                       style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
@@ -592,6 +597,12 @@ class Clip extends React.Component {
 
     const title = get(this, `props.data.${nodeName}.title`)
     const description = get(this, `props.data.${nodeName}.field_overview.processed`)
+    const full_description = get(this, `props.data.${nodeName}.field_full_version.processed`)
+
+
+    console.log(full_description);
+
+    const display_description = (full_description != undefined) ? full_description : description;
 
     const introText = get(this, `props.data.${nodeName}.description.processed`)
 
@@ -643,7 +654,7 @@ class Clip extends React.Component {
                 {videoPlayer}
 
               </MainImage>
-              <ClipDescription dangerouslySetInnerHTML={{ __html: description }} />
+              <ClipDescription dangerouslySetInnerHTML={{ __html: display_description }} />
             </ContentBar>
             {/* <SideBar>
             <SubTitle>explore:</SubTitle>
